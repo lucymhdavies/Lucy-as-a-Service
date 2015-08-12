@@ -6,7 +6,7 @@ Dotenv.load
 
 
 get '/' do
-	"Hello Sinatra"
+	erb :index
 end
 
 
