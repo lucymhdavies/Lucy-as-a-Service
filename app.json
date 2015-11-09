@@ -1,0 +1,5 @@
+{
+  "name": "Sinatra Boilerplate",
+  "description": "Boilerplate for Sinatra",
+  "image": "heroku/jruby"
+}
