@@ -1,5 +1,5 @@
 {
-  "name": "LMHD Sinatra Boilerplate",
+  "name": "LMHD Lucy as a Service",
   "description": "Boilerplate for Sinatra",
   "image": "heroku/ruby"
 }
