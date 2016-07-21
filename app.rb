@@ -8,7 +8,8 @@ Dotenv.load
 
 def slack_message ( text )
 	json ({
-		"text" => text
+		"response_type" => "in_channel",
+		"text"          => text
 	})
 end
 
