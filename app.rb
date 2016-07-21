@@ -1,12 +1,15 @@
 require 'sinatra'
 require 'dotenv'
 require 'json'
+require 'sinatra/json'
 
 Dotenv.load
 
 
 def slack_message ( text )
-	JSON.generate( { "text" => text } )
+	json ({
+		"text" => text
+	})
 end
 
 

@@ -3,6 +3,7 @@ GEM
   specs:
     dotenv (2.1.1)
     json (2.0.1)
+    multi_json (1.12.1)
     rack (1.5.4)
     rack-protection (1.5.3)
       rack
@@ -11,6 +12,9 @@ GEM
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    sinatra-json (0.1.0)
+      multi_json (~> 1.0)
+      sinatra (~> 1.0)
     tilt (2.0.3)
 
 PLATFORMS
@@ -22,6 +26,7 @@ DEPENDENCIES
   rack
   rake
   sinatra
+  sinatra-json
 
 BUNDLED WITH
    1.12.5
