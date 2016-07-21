@@ -5,9 +5,13 @@ require 'json'
 Dotenv.load
 
 
+def slack_message ( text )
+	JSON.generate( { "text" => text } )
+end
+
 
 get '/' do
-	JSON.generate( "Yo" )
+	slack_message "Yo"
 end
 
 
@@ -18,7 +22,7 @@ get '/latest/quote' do
 		"Morry found Ug Hill"
 	]
 
-	JSON.generate( quotes.sample )
+	slack_message quotes
 end
 
 # TODO: Avatar (square)
@@ -32,9 +36,9 @@ get '/latest/teaflick', :probability => 0.5 do
 		"Tails!"
 	]
 
-	JSON.generate( coin.sample )
+	slack_message coin.sample
 end
 
 get '/latest/teaflick' do
-	JSON.generate( "It fell on the floor" )
+	slack_message "It fell on the floor"
 end
