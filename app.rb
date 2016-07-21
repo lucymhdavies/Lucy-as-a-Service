@@ -40,9 +40,19 @@ get '/latest/teaflick', :probability => 0.5 do
 		"Tails!"
 	]
 
-	slack_message coin.sample
+	at_user = ""
+	unless params['user_name'].nil?
+		at_user = "@#{params['user_name']}: "
+	end
+
+	slack_message at_user + coin.sample
 end
 
 get '/latest/teaflick' do
-	slack_message "It fell on the floor"
+	at_user = ""
+	unless params['user_name'].nil?
+		at_user = "@#{params['user_name']}: "
+	end
+
+	slack_message at_user + "It fell on the floor!"
 end
