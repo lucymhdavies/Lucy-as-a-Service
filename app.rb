@@ -23,7 +23,8 @@ end
 get '/latest/quote' do
 	quotes = [
 		"Lucy. But as a service",
-		"Morry found Ug Hill"
+		"Morry found Ug Hill",
+		"I remembered [the postcode] because it has 'BJ' in it. And I’m 13 years old and amused by such things."
 	]
 
 	slack_message quotes
