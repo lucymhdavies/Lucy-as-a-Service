@@ -5,7 +5,6 @@ require 'sinatra/json'
 
 Dotenv.load
 
-
 def slack_message ( text )
 	json ({
 		"response_type" => "in_channel",
@@ -28,9 +27,11 @@ end
 # Wrapper for the main /laas slash command
 post '/slack-slash' do
 
-	# TODO: Remove the "/laas" from this, so it's command agnostic
-	case params['command']
-	when "/laas help"
+	# Hacky logger
+	warn params.inspect
+
+	case params['text']
+	when "help"
 		slack_secret_message "Sorry. Can't help you (yet)"
 	else
 		slack_secret_message "Coming soon!"
