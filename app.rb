@@ -25,9 +25,17 @@ get '/' do
 end
 
 
+# Wrapper for the main /laas slash command
 post '/slack-slash' do
-	# Wrapper for the main /laas slash command
-	slack_secret_message "Coming soon!"
+
+	# TODO: Remove the "/laas" from this, so it's command agnostic
+	case params['command']
+	when "/laas help"
+		slack_secret_message "Sorry. Can't help you (yet)"
+	else
+		slack_secret_message "Coming soon!"
+	end
+
 end
 
 
