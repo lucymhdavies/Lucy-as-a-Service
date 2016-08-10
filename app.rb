@@ -13,10 +13,23 @@ def slack_message ( text )
 	})
 end
 
+def slack_secret_message ( text )
+	json ({
+		"text"          => text
+	})
+end
+
 
 get '/' do
 	slack_message "Yo"
 end
+
+
+post '/slack-slash' do
+	# Wrapper for the main /laas slash command
+	slack_secret_message "Coming soon!"
+end
+
 
 
 # TODO: Random from DB?
