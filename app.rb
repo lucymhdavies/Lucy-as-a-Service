@@ -31,6 +31,10 @@ post '/slack-slash' do
 	warn params.inspect
 
 	case params['text']
+	when ""
+		slack_secret_message "Yo"
+	when "quote"
+		slack_message quote
 	when "help"
 		slack_secret_message "Sorry. Can't help you (yet)"
 	else
@@ -39,17 +43,21 @@ post '/slack-slash' do
 
 end
 
+def quote
+	quotes = [
+		"Lucy. But as a service",
+		"Morry found Ug Hill",
+		"I remembered [the postcode] because it has 'BJ' in it. And I'm 13 years old and amused by such things.",
+		"Like!\nSubscribe!\nFollow on Twitter!\nAll that good stuff."
+	]
+
+	quotes.sample
+end
 
 
 # TODO: Random from DB?
 get '/latest/quote' do
-	quotes = [
-		"Lucy. But as a service",
-		"Morry found Ug Hill",
-		"I remembered [the postcode] because it has 'BJ' in it. And I'm 13 years old and amused by such things."
-	]
-
-	slack_message quotes.sample
+	quote
 end
 
 # TODO: Avatar (square)
