@@ -37,6 +37,8 @@ post '/slack-slash' do
 		slack_message quote
 	when "help"
 		slack_secret_message "Sorry. Can't help you (yet)"
+	when "teaflick"
+		slack_message coffee_roulette
 	when "coffee_roulette"
 		slack_message coffee_roulette
 	else
@@ -45,22 +47,7 @@ post '/slack-slash' do
 
 end
 
-get "/test" do
-	slack_message coffee_roulette
-end
-
 def coffee_roulette
-# Espresso Decaffeinato
-# Lungo Decaffeinato
-# Lungo Origin Guatamala
-# Lungo Forte
-# Espresso Forte
-# Espresso Leggero
-# Espresso Origin Brazil
-# Ristretto
-# Ristretto Origin India
-# Ristretto Intenso
-
 	coffee_pods = [
 		["Espresso Decaffeinato", "Lungo Decaffeinato"],
 		["Lungo Origin Guatamala", "Lungo Forte"],
@@ -97,27 +84,25 @@ end
 # TODO: Avatar (square)
 # i.e. just pick it from gravatar
 
+get "/test" do
+	slack_message teaflick
+end
 
-set(:probability) { |value| condition { rand <= value } }
-get '/latest/teaflick', :probability => 0.5 do
-	coin = [
-		"Heads!",
-		"Tails!"
-	]
+def teaflick
+	if rand < 0.1
+		coin_side = "It fell on the floor!"
+	else
+		coin_side = ["Heads!", "Tails!"].sample
+	end
 
 	at_user = ""
 	unless params['user_name'].nil?
 		at_user = "<@#{params['user_id']}|#{params['user_name']}>: "
 	end
 
-	slack_message at_user + coin.sample
+	at_user + coin_side
 end
 
 get '/latest/teaflick' do
-	at_user = ""
-	unless params['user_name'].nil?
-		at_user = "<@#{params['user_id']}|#{params['user_name']}>: "
-	end
-
-	slack_message at_user + "It fell on the floor!"
+	teaflick
 end
