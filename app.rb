@@ -5,6 +5,9 @@ require 'sinatra/json'
 
 Dotenv.load
 
+# TODO: Avatar (square)
+# i.e. just pick it from gravatar
+
 def slack_message ( text )
 	json ({
 		"response_type" => "in_channel",
@@ -20,9 +23,12 @@ end
 
 
 get '/' do
-	slack_message "Yo"
+	"Yo"
 end
 
+get '/slack-stash' do
+	"Yo. You probably meant to POST to this URL, right?"
+end
 
 # Wrapper for the main /laas slash command
 post '/slack-slash' do
@@ -86,16 +92,8 @@ def quote
 end
 
 
-# TODO: Random from DB?
 get '/latest/quote' do
 	quote
-end
-
-# TODO: Avatar (square)
-# i.e. just pick it from gravatar
-
-get "/test" do
-	slack_message help
 end
 
 def teaflick
