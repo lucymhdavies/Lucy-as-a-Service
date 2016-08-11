@@ -37,10 +37,44 @@ post '/slack-slash' do
 		slack_message quote
 	when "help"
 		slack_secret_message "Sorry. Can't help you (yet)"
+	when "coffee_roulette"
+		slack_message coffee_roulette
 	else
 		slack_secret_message "Coming soon!"
 	end
 
+end
+
+get "/test" do
+	slack_message coffee_roulette
+end
+
+def coffee_roulette
+# Espresso Decaffeinato
+# Lungo Decaffeinato
+# Lungo Origin Guatamala
+# Lungo Forte
+# Espresso Forte
+# Espresso Leggero
+# Espresso Origin Brazil
+# Ristretto
+# Ristretto Origin India
+# Ristretto Intenso
+
+	coffee_pods = [
+		["Espresso Decaffeinato", "Lungo Decaffeinato"],
+		["Lungo Origin Guatamala", "Lungo Forte"],
+		["Espresso Forte", "Espresso Leggero", "Espresso Origin Brazil"],
+		["Ristretto", "Ristretto Origin India", "Ristretto Intenso"]
+	]
+	coffee_styles = [
+		["Espresso", "Espresso, with Milk", "Espresso Mocha"],
+		["Americano", "Americano, with Milk"],
+		["Latte"],
+		["Mocha"]
+	]
+
+	["'" + coffee_pods.sample.sample + "'", "Pod,", coffee_styles.sample.sample].join(" ")
 end
 
 def quote
