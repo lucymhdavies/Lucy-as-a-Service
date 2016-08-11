@@ -41,6 +41,8 @@ post '/slack-slash' do
 		slack_secret_message "Yo"
 	when "help"
 		slack_secret_message help
+	when "IOU"
+		slack_secret_message iou
 	when "quote"
 		slack_message quote
 	when "teaflick"
@@ -51,6 +53,26 @@ post '/slack-slash' do
 		slack_secret_message "Coming soon!"
 	end
 
+end
+
+def iou
+	"Not implemented"
+
+	# TODO
+	# Store a hash of Lucy's usernames on each Slack instance
+	# If user is Lucy, then she can say, e.g.:
+	# /laas iou @dave 3.00 GBP <reason>
+	#
+	# No special command to clear an IOU, just:
+	# /lass iou @dave 0.00 GBP
+	#
+	# Then if @dave runs the command
+	# /laas iou
+	#
+	# then it should secret_message:
+	# @lucy owes you 3.00 GBP for <reason>
+	#
+	# Depends on DB
 end
 
 def help
