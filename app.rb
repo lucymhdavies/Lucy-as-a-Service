@@ -33,10 +33,10 @@ post '/slack-slash' do
 	case params['text']
 	when ""
 		slack_secret_message "Yo"
+	when "help"
+		slack_secret_message help
 	when "quote"
 		slack_message quote
-	when "help"
-		slack_secret_message "Sorry. Can't help you (yet)"
 	when "teaflick"
 		slack_message teaflick
 	when "coffee_roulette"
@@ -45,6 +45,16 @@ post '/slack-slash' do
 		slack_secret_message "Coming soon!"
 	end
 
+end
+
+def help
+	[
+		"Proper help coming later. For now, commands available:",
+		"\thelp - show this message",
+		"\tquote - show a random quote",
+		"\tteaflick - Teaflick!",
+		"\tcoffee_roulette - Pick one of the SHF coffee pods for you at random"
+	].join("\n")
 end
 
 def coffee_roulette
@@ -85,7 +95,7 @@ end
 # i.e. just pick it from gravatar
 
 get "/test" do
-	slack_message teaflick
+	slack_message help
 end
 
 def teaflick
