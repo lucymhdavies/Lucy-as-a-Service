@@ -36,12 +36,13 @@ post '/slack-slash' do
 	# Hacky logger
 	warn params.inspect
 
+	# TODO: pick these from a hash
 	case params['text']
 	when ""
 		slack_secret_message "Yo"
 	when "help"
 		slack_secret_message help
-	when "IOU"
+	when "iou"
 		slack_secret_message iou
 	when "quote"
 		slack_message quote
@@ -54,6 +55,8 @@ post '/slack-slash' do
 	end
 
 end
+
+# TODO: command to store message, command to playback message
 
 def iou
 	"Not implemented"
