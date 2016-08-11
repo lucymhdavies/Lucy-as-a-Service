@@ -38,7 +38,7 @@ post '/slack-slash' do
 	when "help"
 		slack_secret_message "Sorry. Can't help you (yet)"
 	when "teaflick"
-		slack_message coffee_roulette
+		slack_message teaflick
 	when "coffee_roulette"
 		slack_message coffee_roulette
 	else
