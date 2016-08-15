@@ -46,6 +46,8 @@ post '/slack-slash' do
 		slack_secret_message iou
 	when "quote"
 		slack_message quote
+	when "getRandomNumber"
+		slack_message xkcd221
 	when "teaflick"
 		slack_message teaflick
 	when "coffee_roulette"
@@ -54,6 +56,11 @@ post '/slack-slash' do
 		slack_secret_message "Coming soon!"
 	end
 
+end
+
+def xkcd221
+	4 # chosen by fair dice roll.
+	  # guaranteed to be random
 end
 
 # TODO: command to store message, command to playback message
