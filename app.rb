@@ -122,7 +122,6 @@ end
 # TODO: Pick these from a DB
 def coffee_roulette
 	coffee_pods = [
-		["Espresso Decaffeinato", "Lungo Decaffeinato"],
 		["Lungo Origin Guatamala", "Lungo Forte"],
 		["Espresso Forte", "Espresso Leggero", "Espresso Origin Brazil"],
 		["Ristretto", "Ristretto Origin India", "Ristretto Intenso"]
