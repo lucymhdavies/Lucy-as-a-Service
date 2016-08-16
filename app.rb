@@ -37,7 +37,7 @@ post '/slack-slash' do
 	warn params.inspect
 
 	# TODO: pick these from a hash
-	case params['text']
+	case params['text'].split.first
 	when ""
 		slack_secret_message "Yo"
 	when "help"
@@ -50,12 +50,28 @@ post '/slack-slash' do
 		slack_message xkcd221
 	when "teaflick"
 		slack_message teaflick
+	when "save"
+		slack_secret_message save_message
+	when "replay"
+		slack_message replay_message
 	when "coffee_roulette"
 		slack_message coffee_roulette
 	else
 		slack_secret_message "Coming soon!"
 	end
 
+end
+
+# TODO: store this in a db of some sort
+$user_vars = {}
+def save_message
+	$user_vars[params['user_id']] = { :saved_message => params['text'].sub(/save */, "") }
+
+	"Insecurely Saved:\n\n" + $user_vars[params['user_id']][:saved_message]
+end
+
+def replay_message
+	$user_vars[params['user_id']][:saved_message]
 end
 
 def xkcd221
