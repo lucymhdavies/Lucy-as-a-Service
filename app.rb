@@ -37,30 +37,35 @@ post '/slack-slash' do
 	# Hacky logger
 	warn params.inspect
 
-	# TODO: pick these from a hash
-	case params['text'].split.first
-	when ""
-		slack_secret_message "Yo"
-	when "help"
-		slack_secret_message help
-	when "iou"
-		slack_secret_message iou
-	when "quote"
-		slack_message quote
-	when "getRandomNumber"
-		slack_message xkcd221
-	when "teaflick"
-		slack_message teaflick
-	when "save"
-		slack_secret_message save_message
-	when "replay"
-		slack_message replay_message
-	when "lunch_roulette"
-		slack_message lunch_roulette
-	when "coffee_roulette"
-		slack_message coffee_roulette
-	else
-		slack_secret_message "Coming soon!"
+	begin
+		# TODO: pick these from a hash
+		case params['text'].split.first
+		when ""
+			slack_secret_message "Yo"
+		when "help"
+			slack_secret_message help
+		when "iou"
+			slack_secret_message iou
+		when "quote"
+			slack_message quote
+		when "getRandomNumber"
+			slack_message xkcd221
+		when "teaflick"
+			slack_message teaflick
+		when "save"
+			slack_secret_message save_message
+		when "replay"
+			slack_message replay_message
+		when "lunch_roulette"
+			slack_message lunch_roulette
+		when "coffee_roulette"
+			slack_message coffee_roulette
+		else
+			slack_secret_message "Coming soon!"
+		end
+	rescue Exception => e
+		# TODO: is user is lucy, do e.backtrace.inspect
+		slack_secret_message "Error!\n" + e.message
 	end
 
 end
@@ -135,8 +140,12 @@ end
 # TODO: Pick these from a DB
 def lunch_roulette
 	choices = [
-		"M&S", "WHSmith", "Burger King",
-		"Oisoi", "Smokes", "Sainsburys", "Tesco"
+		"M&S",
+		"Oisoi",
+		"Smokes!",
+		"Sainsburys", "Tesco",
+		"Edo Sushi",
+		"Burger King", "KFC", "Subway"
 	]
 
 	choices.sample
