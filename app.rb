@@ -61,7 +61,7 @@ post '/slack-slash' do
 		when "coffee_roulette"
 			slack_message coffee_roulette
 		else
-			slack_secret_message "Coming soon!"
+			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
 	rescue Exception => e
 		# TODO: is user is lucy, do e.backtrace.inspect
