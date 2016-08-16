@@ -30,6 +30,7 @@ get '/slack-stash' do
 	"Yo. You probably meant to POST to this URL, right?"
 end
 
+# TODO: Verify Slack auth token
 # Wrapper for the main /laas slash command
 post '/slack-slash' do
 
@@ -54,6 +55,8 @@ post '/slack-slash' do
 		slack_secret_message save_message
 	when "replay"
 		slack_message replay_message
+	when "lunch_roulette"
+		slack_message lunch_roulette
 	when "coffee_roulette"
 		slack_message coffee_roulette
 	else
@@ -111,6 +114,7 @@ def help
 	].join("\n")
 end
 
+# TODO: Pick these from a DB
 def coffee_roulette
 	coffee_pods = [
 		["Espresso Decaffeinato", "Lungo Decaffeinato"],
@@ -126,6 +130,16 @@ def coffee_roulette
 	]
 
 	["'" + coffee_pods.sample.sample + "'", "Pod,", coffee_styles.sample.sample].join(" ")
+end
+
+# TODO: Pick these from a DB
+def lunch_roulette
+	choices = [
+		"M&S", "WHSmith", "Burger King",
+		"Oisoi", "Smokes", "Sainsburys", "Tesco"
+	]
+
+	choices.sample
 end
 
 def quote
