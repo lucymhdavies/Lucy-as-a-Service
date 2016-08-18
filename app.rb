@@ -5,6 +5,20 @@ require 'sinatra/json'
 
 Dotenv.load
 
+# TODO: Refactor the balls out of this
+# My current thinking is:
+# - Have a directory, e.g. 'commands', in which all command code is stored
+# -- e.g. coffee_roulette
+# - Have a hash for which commands are available
+# -- Interact with this through a Class, e.g.
+# -- LAAS.Commands.register()
+# -- This should define:
+# --- command name
+# --- help text
+# --- output method (stdout/stderr = default (in_channel, secret), or by specifying pair)
+# -- Maybe each command should be it's own class
+
+
 # TODO: Avatar (square)
 # i.e. just pick it from gravatar
 
