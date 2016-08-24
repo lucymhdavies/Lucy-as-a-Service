@@ -87,7 +87,17 @@ end
 # TODO: store this in a db of some sort
 $user_vars = {}
 def save_message
-	$user_vars[params['user_id']] = { :saved_message => params['text'].sub(/save */, "") }
+	# TODO: Detect things which look like JIRA ticket numbers, and automatically link them
+	# e.g.
+	# jira_projects = ["FOO", "BAR", "BAZ"] #(or a regex)
+	# jira_url      = 'https://jira.example.com/"
+	# If we detect something like FOO-123 in saved_message_text, then replace with:
+	# <#{jira_url}/browse/FOO-123|FOO-123>
+
+	saved_message_text = params['text'].sub(/save */, "")
+
+
+	$user_vars[params['user_id']] = { :saved_message => saved_message_text }
 
 	"Insecurely Saved:\n\n" + $user_vars[params['user_id']][:saved_message]
 end
