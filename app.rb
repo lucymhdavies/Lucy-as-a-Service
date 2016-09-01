@@ -40,7 +40,7 @@ get '/' do
 	"Yo"
 end
 
-get '/slack-stash' do
+get '/slack-slash' do
 	"Yo. You probably meant to POST to this URL, right?"
 end
 
