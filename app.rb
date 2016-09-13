@@ -72,7 +72,7 @@ post '/slack-slash' do
 			slack_message replay_message
 		when "lunch_roulette"
 			slack_message lunch_roulette
-		when "coffee_roulette"
+		when "coffee", "coffee_roulette"
 			slack_message coffee_roulette
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
