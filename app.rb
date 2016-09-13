@@ -74,6 +74,8 @@ post '/slack-slash' do
 			slack_message lunch_roulette
 		when "coffee", "coffee_roulette"
 			slack_message coffee_roulette
+		when "summon"
+			slack_message summon
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
@@ -131,6 +133,14 @@ def iou
 	# @lucy owes you 3.00 GBP for <reason>
 	#
 	# Depends on DB
+end
+
+def summon
+	summon_item = params['text'].sub(/summon */, "")
+
+	if summon_item != ""
+		":#{summon_item}:"
+	end
 end
 
 def help
