@@ -86,17 +86,26 @@ post '/slack-slash' do
 
 end
 
+# Parse a string for slacky things
+def slack_parse( text )
+
+	jira_url = ENV['JIRA_URL'] || "https://jira.example.com/"
+
+	# JIRA ticket match
+	# TODO: ensure this isn't part of another word
+	text.gsub( /\p{Alpha}+-\p{Digit}+/ , "<#{jira_url}browse/\\0|\\0>" )
+
+	# TODO: Detect @usernames and #channels
+	# Usernames are <@bob|bob>
+	# Channels are <#C024BE7LR|general> (but there must be a way of doing this without knowing the channel id...)
+
+end
+
 # TODO: store this in a db of some sort
 $user_vars = {}
 def save_message
-	# TODO: Detect things which look like JIRA ticket numbers, and automatically link them
-	# e.g.
-	# jira_projects = ["FOO", "BAR", "BAZ"] #(or a regex)
-	# jira_url      = 'https://jira.example.com/"
-	# If we detect something like FOO-123 in saved_message_text, then replace with:
-	# <#{jira_url}/browse/FOO-123|FOO-123>
-
 	saved_message_text = params['text'].sub(/save */, "")
+	saved_message_text = slack_parse saved_message_text
 
 
 	$user_vars[params['user_id']] = { :saved_message => saved_message_text }
@@ -138,6 +147,7 @@ end
 def summon
 	summon_item = params['text'].sub(/summon */, "")
 
+	# TODO: Use slack emoji API to see if such an emoji exists
 	if summon_item != ""
 		":#{summon_item}:"
 	end
