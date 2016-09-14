@@ -96,9 +96,8 @@ def slack_parse( text )
 	text = text.gsub( /\p{Alpha}+-\p{Digit}+/ , "<#{jira_url}browse/\\0|\\0>" )
 
 	# Usernames are @bob --> <@bob|bob>
-	# TODO: the below does <@bob|@bob>, which doesn't work...
-	#text = text.gsub( /@[a-z0-9][a-z0-9._-]*/ , "<\\0|\\0>" )
-	
+	# TODO: ensure this isn't part of another word or email address or something.
+	text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
 
 	# TODO: Detect #channels
 	# Channels are <#C024BE7LR|general> (but there must be a way of doing this without knowing the channel id...)
