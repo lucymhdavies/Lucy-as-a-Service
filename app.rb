@@ -203,6 +203,7 @@ def quote
 		"Lucy. But as a service",
 		"Morry found Ug Hill",
 		"I remembered [the postcode] because it has 'BJ' in it. And I'm 13 years old and amused by such things.",
+		"Big warehouse type supermarket. Like if Tesco had sex with America",
 		"Like!\nSubscribe!\nFollow on Twitter!\nAll that good stuff."
 	]
 
