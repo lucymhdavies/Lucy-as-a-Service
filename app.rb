@@ -201,6 +201,7 @@ end
 def quote
 	quotes = [
 		"Lucy. But as a service",
+		"pscli is love. pscli is life. pscli is all. pscli.",
 		"Morry found Ug Hill",
 		"I remembered [the postcode] because it has 'BJ' in it. And I'm 13 years old and amused by such things.",
 		"Big warehouse type supermarket. Like if Tesco had sex with America",
