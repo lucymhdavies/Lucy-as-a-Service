@@ -74,6 +74,8 @@ post '/slack-slash' do
 			slack_message lunch_roulette
 		when "coffee", "coffee_roulette"
 			slack_message coffee_roulette
+		when "standup"
+			slack_message standup
 		when "summon"
 			slack_message summon
 		else
@@ -84,6 +86,23 @@ post '/slack-slash' do
 		slack_secret_message "Error!\n" + e.message
 	end
 
+end
+
+def standup
+	# TODO, use Slack API to get active users in current channel, sort by first name
+	# Get participants in this channel
+	participants = [
+		"daviesl"
+	]
+
+	text = "<!here>: Standup time!\n\n"
+	text = text + "Running Order:"
+
+	participants.each do |p|
+		text = text + "\n<@#{p}|#{p}>"
+	end
+
+	text
 end
 
 # Parse a string for slacky things
