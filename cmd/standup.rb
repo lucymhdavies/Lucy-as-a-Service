@@ -37,7 +37,11 @@ def standup
 	when "standup next"
 		slack_message standup_next
 	when "standup", "standup start"
+		# TODO: allow user to specify sort orders
 		slack_message standup_start
+	when "standup clear", "standup reset"
+		$all_users = []
+		slack_secret_message "Reset"
 	when "standup populate"
 		populate_all_users
 		slack_secret_message "Populated"
