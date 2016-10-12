@@ -1,38 +1,46 @@
 
-def standup_participants
-	# TODO, use Slack API to get active users in current channel, sort by first name
-	# Useful params:
-	# params['channel_id']
-	# params['channel_name']
-	#
-	# Slack API: channels.info: https://api.slack.com/methods/channels.info
-	# Values:
-	#	channel.menbers is array of member user IDs.
-	#
-	# Slack API: users.info: https://api.slack.com/methods/users.info
-	# Values:
-	#	user.name is the username
-	#	user.profile.real_name is the full name
-	#
-	# Slack API: users.getPresence: https://api.slack.com/methods/users.getPresence
-	# Values:
-	#	presence is either active or away
-	# There are other fields, but this is probably the most useful
+# TODO: populate this on a cron, or with some other command
+$all_users = []
+def populate_all_users
+	channel_info = Slack.channels_info( :channel => params['channel_id'] )
+	users = channel_info['channel']['members']
 
-	# Get participants in this channel
-	$standup_participants = [
-		"daviesl",
-		"dolan-duck",
-		"maccky-moose"
-	]
 	# TODO: exclude some people from this list
+
+	users.each do |uid|
+		presence = Slack.users_getPresence( :user => uid )['presence']
+
+		if presence == "active"
+			user = Slack.users_info( :user => uid )
+			$all_users.push user
+		end
+	end
+end
+
+def standup_participants
+	if $all_users.empty?
+		populate_all_users
+	end
+
+	# TODO: Sort by real_name
+
+	$standup_participants = []
+	# Extract just the usernames
+	$all_users.each do |user|
+		$standup_participants.push user['user']['name']
+	end
 end
 
 def standup
-	if params['text'].chomp == "standup next"
+	# TODO: allow slack delayed response for this
+	case params['text'].chomp
+	when "standup next"
 		slack_message standup_next
-	elsif (params['text'].chomp == "standup") || (params['text'].chomp == "standup start")
+	when "standup", "standup start"
 		slack_message standup_start
+	when "standup populate"
+		populate_all_users
+		slack_secret_message "Populated"
 	else
 		slack_secret_message "I don't know what to do with: #{params['text'].chomp}"
 	end
