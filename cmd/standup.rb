@@ -60,7 +60,10 @@ def standup_start
 	$standup_over = false
 
 	$standup_participants.each do |p|
-		text = text + "\n<@#{p}|#{p}>"
+#		text = text + "\n<@#{p}|#{p}>"
+
+		# While testing, don't want to actually summon these users
+		text = text + "\n#{p}"
 	end
 
 	text
