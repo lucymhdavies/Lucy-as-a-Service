@@ -2,25 +2,25 @@
 # TODO: populate this on a cron, or with some other command
 $all_users = []
 def populate_all_users
-	channel_info = Slack.channels_info( :channel => params['channel_id'] )
-	users = channel_info['channel']['members']
+	if $all_users.empty?
+		channel_info = Slack.channels_info( :channel => params['channel_id'] )
+		users = channel_info['channel']['members']
 
-	# TODO: exclude some people from this list
+		# TODO: exclude some people from this list
 
-	users.each do |uid|
-		presence = Slack.users_getPresence( :user => uid )['presence']
+		users.each do |uid|
+			presence = Slack.users_getPresence( :user => uid )['presence']
 
-		if presence == "active"
-			user = Slack.users_info( :user => uid )
-			$all_users.push user
+			if presence == "active"
+				user = Slack.users_info( :user => uid )
+				$all_users.push user
+			end
 		end
 	end
 end
 
 def standup_participants
-	if $all_users.empty?
-		populate_all_users
-	end
+	populate_all_users
 
 	# TODO: Sort by real_name
 
