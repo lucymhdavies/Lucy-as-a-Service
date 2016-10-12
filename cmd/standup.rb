@@ -69,6 +69,10 @@ def standup_start
 
 	text = text + "\n\n"
 	text = text + "Use `/laas standup next` to summon the next person in the list"
+	text = text + "\n\n"
+
+	# summon first user
+	text = text + standup_next
 
 	text
 end
