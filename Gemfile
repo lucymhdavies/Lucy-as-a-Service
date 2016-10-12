@@ -6,4 +6,5 @@ gem 'sinatra'
 gem 'sinatra-json'
 gem 'dotenv'
 gem 'json'
+gem 'slack-api'
 

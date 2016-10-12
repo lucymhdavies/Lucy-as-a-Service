@@ -1,5 +1,14 @@
 {
-  "name": "LMHD Lucy as a Service",
-  "description": "Boilerplate for Sinatra",
-  "image": "heroku/ruby"
+	"name": "LMHD Lucy as a Service",
+	"description": "Lucy. But as a service.",
+	"image": "heroku/ruby"
+	"env" : {
+		"JIRA_URL" : {
+			"description" : "URL for JIRA",
+			"value" : "https://tools.example.com/jira"
+		},
+		"SLACK_API_TOKEN" : {
+			"description" : "API Token for interacting with Slack"
+		}
+	}
 }
