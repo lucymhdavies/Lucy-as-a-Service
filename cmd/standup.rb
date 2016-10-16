@@ -30,7 +30,7 @@ def standup_participants
 		a['user']['real_name'] <=> b['user']['real_name']
 	end
 	$all_users.each do |user|
-		$standup_participants.push user['user']['name']
+		$standup_participants.push user['user']
 	end
 end
 
@@ -67,7 +67,8 @@ def standup_start
 	$standup_over = false
 
 	$standup_participants.each do |p|
-		text = text + "\n<@#{p}|#{p}>"
+# 		text = text + "\n<@#{p}|#{p}>"
+		text = text + "\n#{p['real_name']}"
 	end
 
 	text = text + "\n\n"
@@ -96,7 +97,7 @@ def standup_next
 
 	p = $standup_participants.shift
 	#pt = "<@#{p}|#{p}>"
-	pt = p # for testing, don't summon people
+	pt = p['real_name'] # for testing, don't summon people
 
 	up_next = [
 		"You're up #{pt}",
