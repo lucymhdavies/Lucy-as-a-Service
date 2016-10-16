@@ -4,16 +4,36 @@ $all_users = []
 def populate_all_users
 	if $all_users.empty?
 		channel_info = Slack.channels_info( :channel => params['channel_id'] )
-		users = channel_info['channel']['members']
 
-		# TODO: exclude some people from this list
+		# If channel not found, maybe it's a private channel?
+		# https://api.slack.com/methods/groups.info
+		unless ! channel_info['ok'] && channel_info['error'] == "channel_not_found"
+			users = channel_info['channel']['members']
+		else
+			channel_info = Slack.groups_info( :channel => params['channel_id'] )
+		end
+
+		unless ! channel_info['ok'] && channel_info['error'] == "channel_not_found"
+			users = channel_info['group']['members']
+		else
+			fail "No such channel"
+		end
+
+
+		$exclude_users = []
+		unless ENV['EXCLUDED_STANDUP_USERS'].nil?
+			$exclude_users = ENV['EXCLUDED_STANDUP_USERS'].split(",")
+		end
 
 		users.each do |uid|
 			presence = Slack.users_getPresence( :user => uid )['presence']
 
 			if presence == "active"
 				user = Slack.users_info( :user => uid )
-				$all_users.push user
+
+				unless $exclude_users.include? user['user']['name']
+					$all_users.push user
+				end
 			end
 		end
 	end
@@ -23,20 +43,13 @@ def standup_participants
 	populate_all_users
 
 	$standup_participants = []
-	
-	$exclude_users = []
-	unless ENV['EXCLUDED_STANDUP_USERS'].nil?
-		$exclude_users = ENV['EXCLUDED_STANDUP_USERS'].split(",")
-	end
 
 	# Extract just the usernames
 	$all_users.sort! do |a,b|
 		a['user']['real_name'] <=> b['user']['real_name']
 	end
 	$all_users.each do |user|
-		unless $exclude_users.include? user['user']['name']
-			$standup_participants.push user['user']
-		end
+		$standup_participants.push user['user']
 	end
 
 end
