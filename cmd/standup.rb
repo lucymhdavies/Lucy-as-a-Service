@@ -26,6 +26,9 @@ def standup_participants
 
 	$standup_participants = []
 	# Extract just the usernames
+	$all_users.sort! do |a,b|
+		a['user']['real_name'] <=> b['user']['real_name']
+	end
 	$all_users.each do |user|
 		$standup_participants.push user['user']['name']
 	end
@@ -92,7 +95,8 @@ def standup_next
 	end
 
 	p = $standup_participants.shift
-	pt = "<@#{p}|#{p}>"
+	#pt = "<@#{p}|#{p}>"
+	pt = p # for testing, don't summon people
 
 	up_next = [
 		"You're up #{pt}",
