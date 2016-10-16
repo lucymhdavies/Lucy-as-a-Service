@@ -23,12 +23,20 @@ def standup_participants
 	populate_all_users
 
 	$standup_participants = []
+	
+	$exclude_users = []
+	unless ENV['EXCLUDED_STANDUP_USERS'].nil?
+		$exclude_users = ENV['EXCLUDED_STANDUP_USERS'].split(",")
+	end
+
 	# Extract just the usernames
 	$all_users.sort! do |a,b|
 		a['user']['real_name'] <=> b['user']['real_name']
 	end
 	$all_users.each do |user|
-		$standup_participants.push user['user']
+		unless $exclude_users.include? user['user']['name']
+			$standup_participants.push user['user']
+		end
 	end
 
 end
