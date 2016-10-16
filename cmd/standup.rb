@@ -22,8 +22,6 @@ end
 def standup_participants
 	populate_all_users
 
-	# TODO: Sort by real_name
-
 	$standup_participants = []
 	# Extract just the usernames
 	$all_users.sort! do |a,b|
@@ -32,6 +30,7 @@ def standup_participants
 	$all_users.each do |user|
 		$standup_participants.push user['user']
 	end
+
 end
 
 def standup
@@ -67,8 +66,8 @@ def standup_start
 	$standup_over = false
 
 	$standup_participants.each do |p|
-# 		text = text + "\n<@#{p}|#{p}>"
-		text = text + "\n#{p['real_name']}"
+		pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
+		text = text + "\n#{pt}"
 	end
 
 	text = text + "\n\n"
@@ -96,8 +95,7 @@ def standup_next
 	end
 
 	p = $standup_participants.shift
-	#pt = "<@#{p}|#{p}>"
-	pt = p['real_name'] # for testing, don't summon people
+	pt = "<@#{p['name']}|#{p['name']}>"
 
 	up_next = [
 		"You're up #{pt}",
