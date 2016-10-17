@@ -5,18 +5,18 @@ def populate_all_users
 	if $all_users.empty?
 		channel_info = Slack.channels_info( :channel => params['channel_id'] )
 
-		# If channel not found, maybe it's a private channel?
-		# https://api.slack.com/methods/groups.info
-		unless ! channel_info['ok'] && channel_info['error'] == "channel_not_found"
+		if channel_info['ok']
 			users = channel_info['channel']['members']
 		else
+			# If channel not found, maybe it's a private channel?
+			# https://api.slack.com/methods/groups.info
 			channel_info = Slack.groups_info( :channel => params['channel_id'] )
-		end
 
-		unless ! channel_info['ok'] && channel_info['error'] == "channel_not_found"
-			users = channel_info['group']['members']
-		else
-			fail "No such channel"
+			if channel_info['ok']
+				users = channel_info['group']['members']
+			else
+				fail "No such channel"
+			end
 		end
 
 
@@ -45,9 +45,12 @@ def standup_participants
 	$standup_participants = []
 
 	# Extract just the usernames
-	$all_users.sort! do |a,b|
-		a['user']['real_name'] <=> b['user']['real_name']
-	end
+# 	$all_users.sort! do |a,b|
+# 		a['user']['real_name'] <=> b['user']['real_name']
+# 	end
+
+	$all_users.shuffle!
+
 	$all_users.each do |user|
 		$standup_participants.push user['user']
 	end
@@ -65,6 +68,9 @@ def standup
 	when "standup clear", "standup reset"
 		$all_users = []
 		slack_secret_message "Reset"
+	when "standup done"
+		$all_users = []
+		slack_message ":boom: Standup Complete! :boom:"
 	when "standup populate"
 		populate_all_users
 		slack_secret_message "Populated"
@@ -78,7 +84,7 @@ $standup_participants = []
 $standup_over = false
 def standup_start
 	text = "<!here>: Standup time!\n\n"
-	text = text + "Running Order:"
+	text = text + "Running Order (Shuffled):"
 
 	# Get participants of this standup
 	standup_participants
@@ -107,7 +113,8 @@ def standup_next
 	if $standup_over
 		# Let user start the next standup with standup_next, if they wish
 		$standup_over = false
-		return "Standup already over! Did you want to start a new one?"
+		$all_users = []
+		return ":boom: Standup Complete! :boom:"
 	end
 
 	# Was this standup started with "standup next"?
