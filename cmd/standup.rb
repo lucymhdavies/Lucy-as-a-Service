@@ -69,7 +69,7 @@ def standup
 		slack_message standup_next
 	when "standup", "standup start"
 		# TODO: allow user to specify sort orders
-		slack_message standup_start
+		standup_start
 	when "standup clear", "standup reset"
 		$all_users = []
 		slack_secret_message "Reset"
@@ -88,28 +88,34 @@ end
 $standup_participants = []
 $standup_over = false
 def standup_start
-	text = "<!here>: Standup time!\n\n"
-	text = text + "Running Order (Shuffled):"
+	first_response = "<!here>: Standup time!"
 
-	# Get participants of this standup
-	standup_participants
+	task = Thread.new {
+		second_response = "Running Order (Shuffled):"
 
-	# Standup has not finished yet
-	$standup_over = false
+		# Get participants of this standup
+		standup_participants
 
-	$standup_participants.each do |p|
-		pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
-		text = text + "\n#{pt}"
-	end
+		# Standup has not finished yet
+		$standup_over = false
 
-	text = text + "\n\n"
-	text = text + "Use `/laas standup next` to summon the next person in the list"
-	text = text + "\n\n"
+		$standup_participants.each do |p|
+			pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
+			second_response = second_response + "\n#{pt}"
+		end
 
-	# summon first user
-	text = text + standup_next
+		second_response = second_response + "\n\n"
+		second_response = second_response + "Use `/laas standup next` to summon the next person in the list"
+		second_response = second_response + "\n\n"
 
-	text
+		# summon first user
+		second_response = second_response + standup_next
+
+		post_data = slack_message second_response
+		RestClient.post(params['response_url'], post_data )
+	}
+
+	slack_message first_response
 end
 
 def standup_next
