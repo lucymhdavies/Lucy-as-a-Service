@@ -77,8 +77,12 @@ def standup
 		$all_users = []
 		slack_message ":boom: Standup Complete! :boom:"
 	when "standup populate"
-		populate_all_users
-		slack_secret_message "Populated"
+		task = Thread.new {
+			populate_all_users
+			post_data = slack_secret_message "Populated"
+			RestClient.post(params['response_url'], post_data )
+		}
+		slack_secret_message "Populating"
 	else
 		slack_secret_message "I don't know what to do with: #{params['text'].chomp}"
 	end
