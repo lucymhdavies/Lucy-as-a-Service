@@ -112,6 +112,14 @@ def standup_start
 		second_response = second_response + standup_next
 
 		post_data = slack_message second_response
+
+		# Sleep a second, to ensure first message has been sent
+		# This is kinda a hack. Better would be to push messages into a queue, and
+		# start a thread to monitor the queue, sending messages as they arrive.
+		# Thread would be terminated when the queue contains an EOM item
+
+		sleep(1)
+
 		RestClient.post(params['response_url'], post_data )
 	}
 
