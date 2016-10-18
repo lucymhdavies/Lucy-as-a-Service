@@ -5,6 +5,7 @@ require 'dotenv'
 require 'json'
 require 'sinatra/json'
 require 'slack'
+require 'rest-client'
 Bundler.require
 
 Dotenv.load
