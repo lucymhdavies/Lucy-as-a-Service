@@ -1,5 +1,4 @@
 
-# TODO: populate this on a cron, or with some other command
 $all_users = []
 def populate_all_users
 	if $all_users.empty?
@@ -25,6 +24,7 @@ def populate_all_users
 			$exclude_users = ENV['EXCLUDED_STANDUP_USERS'].split(",")
 		end
 
+		all_users_local = []
 		users.each do |uid|
 			presence = Slack.users_getPresence( :user => uid )['presence']
 
@@ -32,9 +32,14 @@ def populate_all_users
 				user = Slack.users_info( :user => uid )
 
 				unless $exclude_users.include? user['user']['name']
-					$all_users.push user
+					all_users_local.push user
 				end
 			end
+		end
+		if $all_users.empty?
+			$all_users = all_users_local
+		else
+			fail "Race condition! Somebody else already started populating the standup!"
 		end
 	end
 end
