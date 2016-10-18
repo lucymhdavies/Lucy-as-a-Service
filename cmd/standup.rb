@@ -104,13 +104,6 @@ def standup_start
 			second_response = second_response + "\n#{pt}"
 		end
 
-		second_response = second_response + "\n\n"
-		second_response = second_response + "Use `/laas standup next` to summon the next person in the list"
-		second_response = second_response + "\n\n"
-
-		# summon first user
-		second_response = second_response + standup_next
-
 		post_data = slack_message second_response
 
 		# Sleep a second, to ensure first message has been sent
@@ -119,7 +112,15 @@ def standup_start
 		# Thread would be terminated when the queue contains an EOM item
 
 		sleep(1)
+		RestClient.post(params['response_url'], post_data )
 
+		post_data = slack_message "Use `/laas standup next` to summon the next person in the list"
+		sleep(0.1)
+		RestClient.post(params['response_url'], post_data )
+
+		# summon first user
+		post_data = slack_message standup_next
+		sleep(0.1)
 		RestClient.post(params['response_url'], post_data )
 	}
 
