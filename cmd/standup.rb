@@ -162,6 +162,15 @@ def standup_next
 		"You're up #{pt}",
 		"#{pt}: go go go!",
 		"#{pt} your turn",
+		"Go go gadget, #{pt}!",
+		":partyparrot: summons #{pt}",
+		"It's #{pt} O'Clock!",
+		"Something something #{pt}",
+		"#{pt}!",
+		"A wild #{pt} appeared!",
+		"#{pt}, would you kindly...",
+		":kermit: Today's special guest on the Muppets show: #{pt}",
+		":pokeball: I choose you! #{pt}",
 		"Achtung #{pt}!"
 	]
 
@@ -169,6 +178,9 @@ def standup_next
 	if $standup_participants.empty?
 		up_next = [
 			"Finally, #{pt}",
+			"Lastly, #{pt}",
+			"#{pt}, finish us off!",
+			"And for our grand finale, #{pt}!",
 			"And last, but by no means least, #{pt}"
 		]
 		$standup_over = true
