@@ -139,12 +139,8 @@ def standup_next
 
 	if $last_standup_next.nil? or ($last_standup_next + 5 < Time.now)
 		$last_standup_next = Time.now
-
-		warn "Last standup next: #{$last_standup_next}"
-		warn "+5s: #{$last_standup_next + 5}"
-		warn "Time.now: #{Time.now}"
 	else
-		slack_secret_message "Slow down!"
+		return slack_secret_message "Slow down!"
 	end
 
 	# Is the standup already over?
@@ -152,7 +148,7 @@ def standup_next
 		# Let user start the next standup with standup_next, if they wish
 		$standup_over = false
 		$all_users = []
-		return ":boom: Standup Complete! :boom:"
+		return slack_message ":boom: Standup Complete! :boom:"
 	end
 
 	# Was this standup started with "standup next"?
