@@ -135,9 +135,8 @@ end
 $last_standup_next = nil
 def standup_next
 	# Has nobody called standup_next yet?
-	# or has nobody called it in the past 5 seconds?
-
-	if $last_standup_next.nil? or ($last_standup_next + 5 < Time.now)
+	# or has nobody called it in the past 2 seconds?
+	if $last_standup_next.nil? or ($last_standup_next + 2 < Time.now)
 		$last_standup_next = Time.now
 	else
 		return slack_secret_message "Slow down!"
@@ -153,7 +152,7 @@ def standup_next
 
 	# Was this standup started with "standup next"?
 	if $standup_participants.empty?
-		standup_participants
+		return standup_start
 	end
 
 	p = $standup_participants.shift
