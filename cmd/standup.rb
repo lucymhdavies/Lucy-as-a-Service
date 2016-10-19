@@ -123,7 +123,7 @@ def standup_start
 		RestClient.post(params['response_url'], post_data )
 
 		# summon first user
-		post_data = slack_message standup_next
+		post_data = standup_next
 		sleep(0.1)
 		RestClient.post(params['response_url'], post_data )
 	}
@@ -136,8 +136,13 @@ $last_standup_next = nil
 def standup_next
 	# Has nobody called standup_next yet?
 	# or has nobody called it in the past 5 seconds?
+
 	if $last_standup_next.nil? or ($last_standup_next + 5 < Time.now)
 		$last_standup_next = Time.now
+
+		warn "Last standup next: #{$last_standup_next}"
+		warn "+5s: #{$last_standup_next + 5}"
+		warn "Time.now: #{Time.now}"
 	else
 		slack_secret_message "Slow down!"
 	end
