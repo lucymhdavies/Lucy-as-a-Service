@@ -172,6 +172,7 @@ def standup_next
 			"And last, but by no means least, #{pt}"
 		]
 		$standup_over = true
+		$all_users = []
 	end
 
 	slack_message up_next.sample
