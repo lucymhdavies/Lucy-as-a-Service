@@ -66,7 +66,7 @@ def standup
 	# TODO: allow slack delayed response for this
 	case params['text'].chomp
 	when "standup next"
-		slack_message standup_next
+		standup_next
 	when "standup", "standup start"
 		# TODO: allow user to specify sort orders
 		standup_start
@@ -131,7 +131,16 @@ def standup_start
 	slack_message first_response
 end
 
+# When did somebody last type /laas standup next?
+$last_standup_next = nil
 def standup_next
+	# Has nobody called standup_next yet?
+	# or has nobody called it in the past 5 seconds?
+	if $last_standup_next.nil? or ($last_standup_next + 5 < Time.now)
+		$last_standup_next = Time.now
+	else
+		slack_secret_message "Slow down!"
+	end
 
 	# Is the standup already over?
 	if $standup_over
@@ -165,5 +174,5 @@ def standup_next
 		$standup_over = true
 	end
 
-	up_next.sample
+	slack_message up_next.sample
 end
