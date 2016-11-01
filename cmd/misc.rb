@@ -31,7 +31,7 @@ def summon
 
 	# TODO: Use slack emoji API to see if such an emoji exists
 	if summon_item != ""
-		":#{summon_item}:"
+		summon_item.split.map{ |i| ":#{i}:" }.join( " " )
 	end
 end
 
