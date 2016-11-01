@@ -29,6 +29,14 @@ end
 def summon
 	summon_item = params['text'].sub(/summon */, "")
 
+	# Special summons
+	case summon_item.strip
+	when "ghosts"
+		summon_item = "blinky pinky inky clyde"
+	when "mexican wave"
+		summon_item = "parrotwave1 parrotwave2 parrotwave3 parrotwave4 parrotwave5 parrotwave6 parrotwave7 parrotwave8 parrotwave9"
+	end
+
 	# TODO: Use slack emoji API to see if such an emoji exists
 	if summon_item != ""
 		summon_item.split.map{ |i| ":#{i}:" }.join( " " )
