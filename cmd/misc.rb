@@ -56,3 +56,20 @@ def quote
 
 	quotes.sample
 end
+
+def red_dwarf_quote
+	quotes = [
+		"The way the light catches all the angles in your head, it's enchanting.",
+		"Now kindly cluck off before I extract your giblets and shove a large, seasoned onion between the lips you never kiss with.",
+		"Hermann Göring would've been more of a laugh than Rimmer! I mean, OK, he was a drug-crazed transvestite, but at least we could've gone dancing.",
+		"I don't want you to think of me as someone who's dead. More of someone who's no longer a threat to your marriages.",
+		"Smeg!",
+		"He helped me break my programming, sir. Over the years I have managed to develop some serious character faults of which I'm extremely proud! I'm even able to lie to a modest standard, for example: 'you have a very fine hair cut!'",
+		"You're probably thinking is this gonna affect my life? And I've been thinking about this and the answer is... Yes it is.",
+		"Davey, come oooon. You ve got a virus, it's fatal, it happens. It doesn't mean we can't be friends!",
+		"What the hell's happened to my teeth?! I can open beer bottles with my overbite!",
+		"I tell you one thing: I've been to a parallel universe, I've seen time running backwards, I've played pool with planets, and I've given birth to twins, but I never thought in my entire life I'd taste an edible Pot Noodle."
+	]
+
+	quotes.sample
+end

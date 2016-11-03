@@ -61,6 +61,8 @@ post '/slack-slash' do
 			slack_message summon
 		when "delay"
 			delay
+		when "smeg"
+			slack_message red_dwarf_quote
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
