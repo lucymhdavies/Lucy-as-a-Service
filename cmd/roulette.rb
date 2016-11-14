@@ -29,3 +29,23 @@ def lunch_roulette
 
 	choices.sample
 end
+
+def noodle_roulette
+	choices = [
+		"Beef & Tomato",
+		"Original Curry"
+	]
+
+	n = choices.sample
+
+	snark = [
+		"Wow. Well, if you really want to subject yourself to that, go with #{n}",
+		"The least bad option seems to be #{n}",
+		"Don't make me make a bad choice for you!",
+		"Fine. If you insist. Have #{n}",
+		"No.",
+		"I'd sooner pull out all my diodes than recommend one of those for you. But if you demand it of me, then... #{n}"
+	]
+
+	snark.sample
+end

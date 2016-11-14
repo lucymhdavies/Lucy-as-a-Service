@@ -55,6 +55,8 @@ post '/slack-slash' do
 			slack_message lunch_roulette
 		when "coffee", "coffee_roulette"
 			slack_message coffee_roulette
+		when "noodle", "noodle_roulette"
+			slack_message noodle_roulette
 		when "standup"
 			standup
 		when "summon"
