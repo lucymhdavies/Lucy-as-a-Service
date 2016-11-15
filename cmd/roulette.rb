@@ -31,9 +31,12 @@ def lunch_roulette
 end
 
 def noodle_roulette
+	# TODO: No, seriously. Keep these in a DB
 	choices = [
-		"Beef & Tomato",
-		"Original Curry"
+#		"Beef & Tomato",
+		"Original Curry",
+		"Chicken & Mushroom",
+		"Brazilian BBQ Steak"
 	]
 
 	n = choices.sample
