@@ -53,7 +53,8 @@ def quote
 		"So exciting! It's like a reverse unboxing video. So... a boxing video. Except I'm not punching anybody.",
 		"Like!\nSubscribe!\nFollow on Twitter!\nAll that good stuff.",
 		"I'm so low level, I might as well be building this server out of sticks.",
-		"Java is a language created by people to show off how clever they are"
+		"Java is a language created by people to show off how clever they are",
+		"You have written code which can elevate itself to root privilleges? Sudo code?"
 	]
 
 	quotes.sample
