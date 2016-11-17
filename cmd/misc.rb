@@ -43,6 +43,9 @@ def summon
 	end
 end
 
+# TODO: Store these in a DB, along with how often they have been quoted
+# Slightly favour quotes which are newer
+# Favour quotes which have higher scores (add some sort of liking mechanism later?)
 def quote
 	quotes = [
 		"Lucy. But as a service",
@@ -54,7 +57,8 @@ def quote
 		"Like!\nSubscribe!\nFollow on Twitter!\nAll that good stuff.",
 		"I'm so low level, I might as well be building this server out of sticks.",
 		"Java is a language created by people to show off how clever they are",
-		"You have written code which can elevate itself to root privilleges? Sudo code?"
+		"You have written code which can elevate itself to root privilleges? Sudo code?",
+		"You can never be too careful when it comes to eels."
 	]
 
 	quotes.sample
