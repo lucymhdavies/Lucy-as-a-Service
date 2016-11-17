@@ -63,7 +63,7 @@ def standup_participants
 end
 
 def standup
-	# TODO: allow slack delayed response for this
+	# TODO: allow slack delayed response for more of this
 	case params['text'].chomp
 	when "standup next"
 		standup_next
@@ -92,9 +92,12 @@ end
 $standup_participants = []
 $standup_over = false
 def standup_start
-	first_response = "<!here>: Standup time!"
 
 	task = Thread.new {
+		post_data = slack_message "`/laas standup start`\n\n<!here>: Standup time!"
+		sleep(0.1)
+		RestClient.post(params['response_url'], post_data )
+
 		second_response = "Running Order (Shuffled):"
 
 		# Get participants of this standup
@@ -128,7 +131,7 @@ def standup_start
 		RestClient.post(params['response_url'], post_data )
 	}
 
-	slack_message first_response
+	slack_secret_message "Initiating Standup"
 end
 
 # When did somebody last type /laas standup next?
