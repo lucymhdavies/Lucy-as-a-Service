@@ -174,7 +174,8 @@ def standup_next
 		"#{pt}, would you kindly...",
 		":kermit: Today's special guest on the Muppets show: #{pt}",
 		":pokeball: I choose you! #{pt}",
-		"Achtung #{pt}!"
+		"Achtung #{pt}!",
+		"p = Standup.participants.pop(); p['name'] == #{pt}"
 	]
 
 	# Last person
