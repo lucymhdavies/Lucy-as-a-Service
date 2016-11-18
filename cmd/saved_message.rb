@@ -22,13 +22,29 @@ def replay_message(user_id = nil, from = nil)
 		# trigger /laas standup next
 		if params['text'].start_with?("replay standup") || from == :standup_next
 			task = Thread.new {
-				post_data = standup_next
 				sleep(2)
+				post_data = standup_next
 				RestClient.post(params['response_url'], post_data )
 			}
 		end
 
-		slack_message $user_vars[user_id][:saved_message]
+		text = $user_vars[user_id][:saved_message]
+
+		user = Slack.users_info( :user => user_id )
+		user_icon = user['user']['profile']['image_48']
+		username  = user['user']['profile']['real_name'] || userinfo['user']['name']
+
+		message = json ({
+			"response_type" => "in_channel",
+			"text"          => text,
+			"username"      => username,
+			"icon_url"      => user_icon
+		})
+
+		warn "Message:"
+		warn message
+
+		message
 	else
 		slack_secret_message "No saved message for you"
 	end
