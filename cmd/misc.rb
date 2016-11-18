@@ -58,7 +58,8 @@ def quote
 		"I'm so low level, I might as well be building this server out of sticks.",
 		"Java is a language created by people to show off how clever they are",
 		"You have written code which can elevate itself to root privilleges? Sudo code?",
-		"You can never be too careful when it comes to eels."
+		"You can never be too careful when it comes to eels.",
+		"One day, my son, all this will be in Jenkins"
 	]
 
 	quotes.sample
