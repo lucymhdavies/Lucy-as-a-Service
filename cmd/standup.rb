@@ -190,23 +190,5 @@ def standup_next
 		$all_users = []
 	end
 
-	next_user = up_next.sample
-
-	# TODO: do not restrict this to just me
-	# Relies on being able to save multiple messages, one of which is designated the standup message
-	if p['name'] == "daviesl"
-		warn "It's Lucy. Automagicing the standup message"
-		if $user_vars[p['id']] != nil && $user_vars[p['id']][:saved_message] != nil
-			warn "And she has a saved message!"
-			task = Thread.new {
-				post_data = replay_message p['user_id'], :standup_next
-				sleep(0.1)
-				RestClient.post(params['response_url'], post_data )
-			}
-		else
-			warn "But she was not prepared :("
-		end
-	end
-
-	slack_message next_user
+	slack_message up_next.sample
 end
