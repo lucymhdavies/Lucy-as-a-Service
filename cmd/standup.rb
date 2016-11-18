@@ -200,7 +200,7 @@ def standup_next
 			warn "And she has a saved message!"
 			task = Thread.new {
 				post_data = replay_message p['user_id'], :standup_next
-				sleep(2)
+				sleep(0.1)
 				RestClient.post(params['response_url'], post_data )
 			}
 		else
