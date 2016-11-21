@@ -17,8 +17,8 @@ def replay_message
 		# trigger /laas standup next
 		if params['text'].start_with?("replay standup")
 			task = Thread.new {
-				post_data = standup_next
 				sleep(2)
+				post_data = standup_next
 				RestClient.post(params['response_url'], post_data )
 			}
 		end
