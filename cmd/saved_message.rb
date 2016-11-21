@@ -12,15 +12,19 @@ def save_message
 end
 
 def replay_message
-	# if invoked with /laas replay standup.*
-	# trigger /laas standup next
-	if params['text'].start_with?("replay standup")
-		task = Thread.new {
-			post_data = standup_next
-			sleep(2)
-			RestClient.post(params['response_url'], post_data )
-		}
-	end
+	if $user_vars[params['user_id']] && $user_vars[params['user_id']][:saved_message]
+		# if invoked with /laas replay standup.*
+		# trigger /laas standup next
+		if params['text'].start_with?("replay standup")
+			task = Thread.new {
+				post_data = standup_next
+				sleep(2)
+				RestClient.post(params['response_url'], post_data )
+			}
+		end
 
-	$user_vars[params['user_id']][:saved_message]
+		slack_message $user_vars[params['user_id']][:saved_message]
+	else
+		slack_secret_message "No saved message for you"
+	end
 end
