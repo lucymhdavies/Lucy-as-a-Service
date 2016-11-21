@@ -48,6 +48,7 @@ def standup_participants
 	populate_all_users
 
 	$standup_participants = []
+	$standup_participants_skipped = []
 
 	# Extract just the usernames
 # 	$all_users.sort! do |a,b|
@@ -67,6 +68,8 @@ def standup
 	case params['text'].chomp
 	when "standup next"
 		standup_next
+	when "standup skip"
+		standup_skip
 	when "standup", "standup start"
 		# TODO: allow user to specify sort orders
 		standup_start
@@ -74,8 +77,7 @@ def standup
 		$all_users = []
 		slack_secret_message "Reset"
 	when "standup done"
-		$all_users = []
-		slack_message ":boom: Standup Complete! :boom:"
+		standup_done
 	when "standup populate"
 		task = Thread.new {
 			populate_all_users
@@ -90,7 +92,27 @@ end
 
 # TODO: allow per-channel standups
 $standup_participants = []
+$standup_participants_skipped = []
 $standup_over = false
+
+def standup_done
+	# Let user start the next standup with standup_next, if they wish
+	$standup_over = false
+	$all_users = []
+	message = ":boom: Standup Complete! :boom:"
+
+	unless $standup_participants_skipped.empty?
+		message = message + "\n\nSkipped users:\n"
+
+		$standup_participants_skipped.each do |p|
+			pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
+			message = message + "#{pt}\n"
+		end
+	end
+
+	slack_message message
+end
+
 def standup_start
 
 	task = Thread.new {
@@ -121,7 +143,7 @@ def standup_start
 		sleep(0.1)
 		RestClient.post(params['response_url'], post_data )
 
-		post_data = slack_message "Use `/laas standup next` to summon the next person in the list"
+		post_data = slack_message "Use `/laas standup next` to summon the next person in the list\nor `/laas standup skip` to skip somebody not present"
 		sleep(0.1)
 		RestClient.post(params['response_url'], post_data )
 
@@ -136,6 +158,7 @@ end
 
 # When did somebody last type /laas standup next?
 $last_standup_next = nil
+$last_standup_participant = nil
 def standup_next
 	# Has nobody called standup_next yet?
 	# or has nobody called it in the past 2 seconds?
@@ -147,10 +170,7 @@ def standup_next
 
 	# Is the standup already over?
 	if $standup_over
-		# Let user start the next standup with standup_next, if they wish
-		$standup_over = false
-		$all_users = []
-		return slack_message ":boom: Standup Complete! :boom:"
+		return standup_done
 	end
 
 	# Was this standup started with "standup next"?
@@ -159,6 +179,7 @@ def standup_next
 	end
 
 	p = $standup_participants.shift
+	$last_standup_participant = p
 	pt = "<@#{p['name']}|#{p['name']}>"
 
 	up_next = [
@@ -192,4 +213,9 @@ def standup_next
 	end
 
 	slack_message up_next.sample
+end
+
+def standup_skip
+	$standup_participants_skipped.push $last_standup_participant
+	standup_next
 end
