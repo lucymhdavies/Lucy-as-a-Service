@@ -59,7 +59,8 @@ def quote
 		"Java is a language created by people to show off how clever they are",
 		"You have written code which can elevate itself to root privilleges? Sudo code?",
 		"You can never be too careful when it comes to eels.",
-		"One day, my son, all this will be in Jenkins"
+		"One day, my son, all this will be in Jenkins",
+		"The ultimate in automation - keep trying until it works"
 	]
 
 	quotes.sample
