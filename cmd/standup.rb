@@ -196,7 +196,8 @@ def standup_next
 		":kermit: Today's special guest on the Muppets show: #{pt}",
 		":pokeball: I choose you! #{pt}",
 		"Achtung #{pt}!",
-		"p = Standup.participants.pop(); p['name'] == #{pt}"
+		"p = Standup.participants.pop(); p['name'] == #{pt}",
+		"Is it a bird? Is it a plane? No! It's #{pt}!"
 	]
 
 	# Last person
