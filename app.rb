@@ -59,7 +59,7 @@ post '/slack-slash' do
 			slack_message noodle_roulette
 		when "standup"
 			standup
-		when "monkey"
+		when "monkey", "monkeys"
 			monkey
 		when "summon"
 			slack_message summon
