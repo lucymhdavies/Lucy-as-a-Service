@@ -105,8 +105,10 @@ def monkey_list
 	if monkey_group_enabled?
 		warn "Listing monkeys"
 
+		monkey_group_id = $monkey_group['id']
+
 		#slack_secret_message "TODO: List current monkeys. Exclude ps-user"
-		message = "Users in @#{ENV['SLACK_MONKEY_GROUP']}:\n\n"
+		message = "Users in <!subteam^#{monkey_group_id}|#{ENV['SLACK_MONKEY_GROUP']}>:\n\n"
 
 		warn "Monkey Group:"
 		warn $monkey_group.inspect
