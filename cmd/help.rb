@@ -1,4 +1,5 @@
 
+# TODO: Commands should register their own help
 def help
 	[
 		"Proper help coming later. For now, commands available:",
