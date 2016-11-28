@@ -12,12 +12,16 @@ def monkey
 	end
 
 	case params['text'].chomp
-	when "monkey", "monkey who", "monkeys", "monkeys who"
+	when "monkey", "monkey who", "monkeys", "monkeys who", "monkey list", "monkeys list"
 		monkey_list
-	when "monkey me", "monkey set", "monkeys set"
+	when "monkey me"
 		monkey_me
+	when "monkey set", "monkeys set"
+		monkey_set
 	when "monkey clear", "monkeys clear"
 		monkey_clear
+	when "monkey help", "monkeys help"
+		monkey_help
 	else
 		slack_secret_message "I don't know what to do with: #{params['text'].chomp}"
 	end
@@ -140,6 +144,14 @@ def monkey_me
 	# https://api.slack.com/methods/usergroups.users.update
 end
 
+def monkey_set
+	slack_secret_message "TODO: set monkey(s) to specified user(s)"
+
+	# TODO: if no user specified, monkey_clear, monkey_me
+
+	# TODO: if user specified another user group, get all users from that group
+end
+
 
 # TODO
 # TODO: also, do this on a cron
@@ -147,4 +159,19 @@ def monkey_clear
 	slack_secret_message "TODO: Empty out the monkey group"
 	# https://api.slack.com/methods/usergroups.list (get group ID, and check if group is disabled)
 	# https://api.slack.com/methods/usergroups.disable
+end
+
+
+
+def monkey_help
+	message =  "Manages the Monkey user group.\n\n"
+
+	message += "Available Monkey(s) Subcommands:\n"
+	message += "`/laas monkey`, `/laas monkey who`, `/laas monkey list` - Displays current monkey(s)\n"
+	message += "`/laas monkey me` - Add yourself to today's monkey(s)\n"
+	message += "`/laas monkey set <user> <user> <user>` - Set today's monkeys (will remove anybody not in the specified list)\n"
+	message += "`/laas monkey clear` - Empties the monkey group\n"
+	message += "`/laas monkey help` - You're seeing it :slightly_smiling_face:"
+
+	slack_secret_message message
 end
