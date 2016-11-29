@@ -143,7 +143,7 @@ def standup_start
 		sleep(0.1)
 		RestClient.post(params['response_url'], post_data )
 
-		post_data = slack_message "Use `/laas standup next` to summon the next person in the list\nor `/laas standup skip` to skip somebody not present"
+		post_data = slack_message "Use `/laas standup next` to summon the next person in the list\nUse `/laas standup skip` to skip somebody not present"
 		sleep(0.1)
 		RestClient.post(params['response_url'], post_data )
 
