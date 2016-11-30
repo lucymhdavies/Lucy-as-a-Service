@@ -86,3 +86,108 @@ def red_dwarf_quote
 
 	quotes.sample
 end
+
+
+def big_text
+	emoji = params['text'].split[1].to_s
+	word  = params['text'].split[2].to_s
+
+	unless word && emoji
+		slack_secret_message "Insufficient parameters. Call with /laas big_text <emoji> <word>"
+	end
+font = {
+'A' =>
+"XXXXX
+X   X
+XXXXX
+X   X
+X   X",
+'B' =>
+"XXXX 
+X   X
+XXXX 
+X   X
+XXXX ",
+'C' =>
+"XXXXX
+X    
+X    
+X    
+XXXXX",
+'D' =>
+"XXXX
+X   X
+X   X
+X   X
+XXXX",
+'E' =>
+"XXXXX
+X
+XXXXX
+X
+XXXXX",
+'F' =>
+"",
+'G' =>
+"",
+'H' =>
+"",
+'I' =>
+"",
+'J' =>
+"",
+'K' =>
+"",
+'L' =>
+"",
+'M' =>
+"",
+'N' =>
+"",
+'O' =>
+"",
+'P' =>
+"",
+'Q' =>
+"",
+'R' =>
+"",
+'S' =>
+"",
+'T' =>
+"",
+'U' =>
+"",
+'V' =>
+"",
+'W' =>
+"",
+'X' =>
+"",
+'Y' =>
+"",
+'Z' =>
+""
+}
+
+	rows = ["","","","",""]
+	message = ""
+
+	word.scan(/\w/).each do |letter|
+		row = font[letter].split("\n")
+		(0..4).each do |i|
+			rows[i] += " " + row[i]
+		end
+	end
+
+	rows.each do |row|
+		row = row[1..-1]
+		if emoji != nil
+			row.gsub! "X", ":#{emoji}:"
+			row.gsub! " ", ":blank:"
+		end
+		message += row + "\n"
+	end
+
+	slack_message message
+end

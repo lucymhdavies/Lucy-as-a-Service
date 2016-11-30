@@ -67,6 +67,8 @@ post '/slack-slash' do
 			delay
 		when "smeg"
 			slack_message red_dwarf_quote
+		when "big_text"
+			big_text
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
