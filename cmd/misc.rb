@@ -182,7 +182,7 @@ XXXXX",
 	message = ""
 
 	word.scan(/\w/).each do |letter|
-		row = font[letter].split("\n")
+		row = font[letter.upcase].split("\n")
 		(0..4).each do |i|
 			rows[i] += " " + row[i]
 		end
