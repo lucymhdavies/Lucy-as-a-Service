@@ -143,9 +143,17 @@ XXXXX",
 'M' =>
 "",
 'N' =>
-"",
+"X   X
+XX  X
+X X X
+X  XX
+X   X",
 'O' =>
-"",
+"XXXXX
+X   X
+X   X
+X   X
+XXXXX",
 'P' =>
 "",
 'Q' =>
