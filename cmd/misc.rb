@@ -275,3 +275,19 @@ XXXXX"
 
 	slack_message message
 end
+
+
+def clear
+	lines = (params['text'].split[1] || 100).to_i
+
+	message = "Clearing lines..."
+
+	(1..lines).each do |i|
+		message += "\n"
+	end
+
+	message += "Better?"
+
+	slack_secret_message message
+
+end

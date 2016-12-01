@@ -69,6 +69,8 @@ post '/slack-slash' do
 			slack_message red_dwarf_quote
 		when "big_text"
 			big_text
+		when "clear"
+			clear
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
