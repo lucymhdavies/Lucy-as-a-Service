@@ -291,3 +291,18 @@ def clear
 	slack_secret_message message
 
 end
+
+def what_is_laas
+	l_words = [
+		"Lucy",
+		"Lambda",
+		"LaaS",
+		"Lulz",
+		"Loquacity",
+		"LOL",
+		"L",
+		"Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
+	]
+
+	quotes.sample + " as a Service, at your service :slightly_smiling_face:"
+end

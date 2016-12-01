@@ -35,8 +35,8 @@ post '/slack-slash' do
 	begin
 		# TODO: pick these from a hash
 		case params['text'].split.first
-		when ""
-			slack_secret_message "Yo"
+		when "", nil
+			what_is_laas
 		when "help"
 			slack_secret_message help
 		when "iou"
