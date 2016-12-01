@@ -115,11 +115,11 @@ X
 X    
 XXXXX",
 'D' =>
-"XXXX
+"XXXX 
 X   X
 X   X
 X   X
-XXXX",
+XXXX ",
 'E' =>
 "XXXXX
 X
