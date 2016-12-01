@@ -304,5 +304,5 @@ def what_is_laas
 		"Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
 	]
 
-	quotes.sample + " as a Service, at your service :slightly_smiling_face:"
+	l_words.sample + " as a Service, at your service :slightly_smiling_face:"
 end
