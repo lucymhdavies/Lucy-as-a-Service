@@ -141,7 +141,11 @@ XXXXX",
 'L' =>
 "",
 'M' =>
-"",
+"XXXXX
+X X X
+X X X
+X   X
+X   X",
 'N' =>
 "X   X
 XX  X
