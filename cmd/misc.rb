@@ -122,24 +122,52 @@ X   X
 XXXX ",
 'E' =>
 "XXXXX
-X
+X    
 XXXXX
-X
+X    
 XXXXX",
 'F' =>
-"",
+"XXXXX
+X    
+XXX  
+X    
+X    ",
 'G' =>
-"",
+"XXXXX
+X    
+X  XX
+X   X
+XXXXX",
 'H' =>
-"",
+"X   X
+X   X
+XXXXX
+X   X
+X   X",
 'I' =>
-"",
+"XXXXX
+  X  
+  X  
+  X  
+XXXXX",
 'J' =>
-"",
+"XXXXX
+  X  
+  X  
+  X  
+XX   ",
 'K' =>
-"",
+"X   X
+X  X 
+XXX  
+X  X 
+X   X",
 'L' =>
-"",
+"X    
+X    
+X    
+X    
+XXXXX",
 'M' =>
 "XXXXX
 X X X
@@ -159,27 +187,71 @@ X   X
 X   X
 XXXXX",
 'P' =>
-"",
+"XXXXX
+X   X
+XXXXX
+X    
+X    ",
 'Q' =>
-"",
+"XXXXX
+X   X
+X   X
+X  X 
+XXX X",
 'R' =>
-"",
+"XXXX 
+X   X
+XXXX 
+X  X 
+X   X",
 'S' =>
-"",
+"XXXXX
+X    
+XXXXX
+    X
+XXXXX",
 'T' =>
-"",
+"XXXXX
+  X  
+  X  
+  X  
+  X  ",
 'U' =>
-"",
+"X   X
+X   X
+X   X
+X   X
+XXXXX",
 'V' =>
-"",
+"X   X
+X   X
+ X X 
+ X X 
+  X  ",
 'W' =>
-"",
+"X   X
+X   X
+X X X
+X X X
+XXXXX",
 'X' =>
-"",
+"X   X
+ X X 
+  X  
+ X X 
+X   X",
 'Y' =>
-"",
+"X   X
+ X X 
+  X  
+  X  
+  X  ",
 'Z' =>
-""
+"XXXXX
+   X 
+  X  
+ X   
+XXXXX"
 }
 
 	rows = ["","","","",""]
