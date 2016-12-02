@@ -220,7 +220,8 @@ def standup_skip
 	# Has nobody called standup_next yet?
 	# or has nobody called it in the past 2 seconds?
 	if $last_standup_next.nil? or ($last_standup_next + 2 < Time.now)
-		$last_standup_next = Time.now
+		# Because we're going to call standup_next afterwards, just unset this
+		$last_standup_next = nil
 	else
 		return slack_secret_message "Slow down!"
 	end
