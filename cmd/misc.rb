@@ -50,41 +50,29 @@ def summon
 	end
 end
 
-# TODO: Store these in a DB, along with how often they have been quoted
+# TODO: Store these in a DB (DONE), along with how often they have been quoted
 # Slightly favour quotes which are newer
 # Favour quotes which have higher scores (add some sort of liking mechanism later?)
 def quote
-	quotes = [
-		"pscli is love. pscli is life. pscli is all. pscli.",
-		"I remembered [the postcode] because it has 'BJ' in it. And I'm 13 years old and amused by such things.",
-		"Big warehouse type supermarket. Like if Tesco had sex with America",
-		"So exciting! It's like a reverse unboxing video. So... a boxing video. Except I'm not punching anybody.",
-		"I'm so low level, I might as well be building this server out of sticks.",
-		"Java is a language created by people to show off how clever they are",
-		"You have written code which can elevate itself to root privilleges? Sudo code?",
-		"You can never be too careful when it comes to eels.",
-		"One day, my son, all this will be in Jenkins",
-		"The ultimate in automation - keep trying until it works"
-	]
+	r = $redis.get( "laas:quotes" )
+	if r.nil? || r == ""
+		return slack_secret_message "No quotes in DB (yet)"
+	end
 
-	quotes.sample
+	quotes = JSON.parse( r )
+
+	slack_message quotes.sample
 end
 
 def red_dwarf_quote
-	quotes = [
-		"The way the light catches all the angles in your head, it's enchanting.",
-		"Now kindly cluck off before I extract your giblets and shove a large, seasoned onion between the lips you never kiss with.",
-		"Hermann Göring would've been more of a laugh than Rimmer! I mean, OK, he was a drug-crazed transvestite, but at least we could've gone dancing.",
-		"I don't want you to think of me as someone who's dead. More of someone who's no longer a threat to your marriages.",
-		"Smeg!",
-		"He helped me break my programming, sir. Over the years I have managed to develop some serious character faults of which I'm extremely proud! I'm even able to lie to a modest standard, for example: 'you have a very fine hair cut!'",
-		"You're probably thinking is this gonna affect my life? And I've been thinking about this and the answer is... Yes it is.",
-		"Davey, come oooon. You ve got a virus, it's fatal, it happens. It doesn't mean we can't be friends!",
-		"What the hell's happened to my teeth?! I can open beer bottles with my overbite!",
-		"I tell you one thing: I've been to a parallel universe, I've seen time running backwards, I've played pool with planets, and I've given birth to twins, but I never thought in my entire life I'd taste an edible Pot Noodle."
-	]
+	r = $redis.get( "laas:quotes:red_dwarf" )
+	if r.nil? || r == ""
+		return slack_secret_message "No red dwarf quotes in DB (yet)"
+	end
 
-	quotes.sample
+	quotes = JSON.parse( r )
+
+	slack_message quotes.sample
 end
 
 

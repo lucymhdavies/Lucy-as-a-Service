@@ -42,7 +42,7 @@ post '/slack-slash' do
 		when "iou"
 			slack_secret_message iou
 		when "quote"
-			slack_message quote
+			quote
 		when "getRandomNumber"
 			slack_message xkcd221
 		when "teaflick"
@@ -66,7 +66,7 @@ post '/slack-slash' do
 		when "delay"
 			delay
 		when "smeg"
-			slack_message red_dwarf_quote
+			red_dwarf_quote
 		when "big_text"
 			big_text
 		when "clear"

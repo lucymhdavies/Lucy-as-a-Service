@@ -12,9 +12,7 @@ Bundler.require
 
 Dotenv.load
 
-redis = Redis.new
-
-redis = Redis.new(:url => ENV["REDIS_URI"])
+$redis = Redis.new(:url => ENV["REDIS_URI"])
 
 # Library files
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
