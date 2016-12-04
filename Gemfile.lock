@@ -25,6 +25,7 @@ GEM
     rack-protection (1.5.3)
       rack
     rake (11.1.2)
+    redis (3.3.2)
     rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -57,10 +58,14 @@ DEPENDENCIES
   json
   rack
   rake
+  redis (~> 3.2)
   rest-client
   sinatra
   sinatra-json
   slack-api
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.13.1
+   1.13.6

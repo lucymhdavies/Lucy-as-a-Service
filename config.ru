@@ -6,9 +6,15 @@ require 'json'
 require 'sinatra/json'
 require 'slack'
 require 'rest-client'
+require "redis"
+
 Bundler.require
 
 Dotenv.load
+
+redis = Redis.new
+
+redis = Redis.new(:url => ENV["REDIS_URI"])
 
 # Library files
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }

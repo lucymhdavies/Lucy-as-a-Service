@@ -105,13 +105,14 @@ def monkey_group_enabled?
 end
 
 
+# TODO: allow quiet listing
+# Will not summon users in list
 def monkey_list
 	if monkey_group_enabled?
 		warn "Listing monkeys"
 
 		monkey_group_id = $monkey_group['id']
 
-		#slack_secret_message "TODO: List current monkeys. Exclude ps-user"
 		message = "Users in <!subteam^#{monkey_group_id}|#{ENV['SLACK_MONKEY_GROUP']}>:\n\n"
 
 		warn "Monkey Group:"
@@ -167,10 +168,16 @@ def monkey_help
 	message =  "Manages the Monkey user group.\n\n"
 
 	message += "Available Monkey(s) Subcommands:\n"
+
 	message += "`/laas monkey`, `/laas monkey who`, `/laas monkey list` - Displays current monkey(s)\n"
+	# TODO: Mention quiet summoning, once it's available
+
 	message += "`/laas monkey me` - Add yourself to today's monkey(s)\n"
+
 	message += "`/laas monkey set <user> <user> <user>` - Set today's monkeys (will remove anybody not in the specified list)\n"
+
 	message += "`/laas monkey clear` - Empties the monkey group\n"
+
 	message += "`/laas monkey help` - You're seeing it :slightly_smiling_face:"
 
 	slack_secret_message message
