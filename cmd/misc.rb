@@ -53,24 +53,21 @@ end
 # TODO: Store these in a DB (DONE), along with how often they have been quoted
 # Slightly favour quotes which are newer
 # Favour quotes which have higher scores (add some sort of liking mechanism later?)
+
 def quote
-	r = $redis.get( "laas:quotes" )
-	if r.nil? || r == ""
-		return slack_secret_message "No quotes in DB (yet)"
-	end
-
-	quotes = JSON.parse( r )
-
-	slack_message quotes.sample
+	abstract_quote
 end
 
 def red_dwarf_quote
-	r = $redis.get( "laas:quotes:red_dwarf" )
-	if r.nil? || r == ""
-		return slack_secret_message "No red dwarf quotes in DB (yet)"
-	end
+	abstract_quote "red_dwarf"
+end
 
-	quotes = JSON.parse( r )
+def abstract_quote( list="default" )
+	quotes = $redis.smembers( "laas:quotes:#{list}" )
+
+	if quotes.nil? || quotes == ""
+		return slack_secret_message "No #{list} quotes in DB (yet)"
+	end
 
 	slack_message quotes.sample
 end
@@ -281,16 +278,11 @@ def clear
 end
 
 def what_is_laas
-	l_words = [
-		"Lucy",
-		"Lambda",
-		"LaaS",
-		"Lulz",
-		"Loquacity",
-		"LOL",
-		"L",
-		"Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
-	]
+	l_words = $redis.smembers( "laas:quotes:laas" )
+
+	if l_words.nil? || l_words == ""
+		return "Nobody knows what LaaS means!"
+	end
 
 	l_words.sample + " as a Service, at your service :slightly_smiling_face:"
 end
