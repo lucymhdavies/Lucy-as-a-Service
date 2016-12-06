@@ -1,4 +1,18 @@
 
+def user_is_admin?( team_id, user_id )
+	# TODO: is user_id in laas:config:#{team_id}:admins ?
+	return true
+end
+
+def from_slack?( token )
+	# TODO: is token valid?
+	# i.e. did this request really come from Slack?
+
+	# Disable for LaaS Develop (in config.ru)
+	return true
+end
+
+
 def slack_message ( text )
 	json ({
 		"response_type" => "in_channel",

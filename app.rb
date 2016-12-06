@@ -29,6 +29,10 @@ end
 # Wrapper for the main /laas slash command
 post '/slack-slash' do
 
+	unless from_slack?( params['token'] )
+		slack_secret_message "Doesn't look like you're calling the API from Slack, buddy!"
+	end
+
 	# Hacky logger
 	warn params.inspect
 
@@ -71,6 +75,8 @@ post '/slack-slash' do
 			big_text
 		when "clear"
 			clear
+		when "admin"
+			admin
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
