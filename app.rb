@@ -77,6 +77,8 @@ post '/slack-slash' do
 			clear
 		when "admin"
 			admin
+		when "donut"
+			donut
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
