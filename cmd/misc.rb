@@ -286,3 +286,7 @@ def what_is_laas
 
 	l_words.sample + " as a Service, at your service :slightly_smiling_face:"
 end
+
+def donut
+	"<@#{params['user_name']}|#{params['user_name']}> is buying donuts for everybody! :donut:"
+end
