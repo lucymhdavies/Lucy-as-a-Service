@@ -288,5 +288,5 @@ def what_is_laas
 end
 
 def donut
-	"<@#{params['user_name']}|#{params['user_name']}> is buying donuts for everybody! :donut:"
+	slack_message "<@#{params['user_name']}|#{params['user_name']}> is buying donuts for everybody! :donut:"
 end
