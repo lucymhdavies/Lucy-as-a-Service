@@ -115,6 +115,8 @@ end
 
 def standup_start
 
+	# TODO: all the below should be added to a Slack Message queue
+
 	task = Thread.new {
 		post_data = slack_message "`/laas standup start`\n\n<!here>: Standup time!"
 		sleep(0.1)
@@ -205,7 +207,7 @@ def standup_next
 		up_next = [
 			"Finally, #{pt}",
 			"Lastly, #{pt}",
-			"#{pt}, finish us off!",
+			"#{pt}, finish us off! :matron:",
 			"And for our grand finale, #{pt}!",
 			"And last, but by no means least, #{pt}"
 		]

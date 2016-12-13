@@ -35,13 +35,6 @@ def summon
 		summon_item = "blinky pinky inky clyde"
 	when "mexican wave"
 		summon_item = "parrotwave1 parrotwave2 parrotwave3 parrotwave4 parrotwave5 parrotwave6 parrotwave7 parrotwave8 parrotwave9"
-	when "spam"
-		summon_item = ":party-spam::party-spam::party-spam::party-spam::party-spam::blank::blank::party-spam::party-spam::party-spam::party-spam::party-spam::blank::blank::party-spam::party-spam::party-spam::party-spam::party-spam::blank::blank::party-spam::party-spam::party-spam::party-spam::party-spam:
-:party-spam::blank::blank::blank::blank::blank::blank::party-spam::blank::blank::blank::party-spam::blank::blank::party-spam::blank::blank::blank::party-spam::blank::blank::party-spam::blank::party-spam::blank::party-spam:
-:party-spam::party-spam::party-spam::party-spam::party-spam::blank::blank::party-spam::party-spam::party-spam::party-spam::party-spam::blank::blank::party-spam::party-spam::party-spam::party-spam::party-spam::blank::blank::party-spam::blank::blank::blank::party-spam:
-:blank::blank::blank::blank::party-spam::blank::blank::party-spam::blank::blank::blank::blank::blank::blank::party-spam::blank::blank::blank::party-spam::blank::blank::party-spam::blank::blank::blank::party-spam:
-:party-spam::party-spam::party-spam::party-spam::party-spam::blank::blank::party-spam::blank::blank::blank::blank::blank::blank::party-spam::blank::blank::blank::party-spam::blank::blank::party-spam::blank::blank::blank::party-spam:"
-		return summon_item
 	end
 
 	# TODO: Use slack emoji API to see if such an emoji exists
@@ -265,7 +258,7 @@ end
 def clear
 	lines = (params['text'].split[1] || 100).to_i
 
-	message = "Clearing lines..."
+	message = "Clearing #{lines} lines..."
 
 	(1..lines).each do |i|
 		message += "\n"
