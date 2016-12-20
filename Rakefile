@@ -1,3 +1,5 @@
+# Common includes
+Dir[File.dirname(__FILE__) + '/lib/includes.rb'].each {|file| require file }
 
 Dir.glob('lib/tasks/*.rake').each { |r| load r}
 
