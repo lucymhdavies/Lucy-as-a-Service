@@ -29,5 +29,5 @@ def say_message
 		RestClient.post(params['response_url'], post_data )
 	}
 
-	slack_secret_message " "
+	slack_secret_message "Sent"
 end
