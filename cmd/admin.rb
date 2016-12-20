@@ -1,8 +1,4 @@
 def admin
-	unless user_is_admin?( params['team_id'], params['user_id'] )
-		return slack_secret_message "These commands are for admins only!"
-	end
-
 	case params['text'].chomp
 	when "admin db"
 		slack_secret_message redis_link
@@ -20,4 +16,18 @@ def redis_link
 
 	r
 
+end
+
+def say_message
+	unless user_is_admin?( params['team_id'], params['user_id'] )
+		return slack_secret_message "These commands are for admins only!"
+	end
+
+	task = Thread.new {
+		message_text = params['text'].sub(/save */, "")
+		post_data = slack_message message_text
+		RestClient.post(params['response_url'], post_data )
+	}
+
+	slack_secret_message ""
 end
