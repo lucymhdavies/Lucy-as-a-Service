@@ -30,3 +30,4 @@ def replay_message
 
 	slack_message message
 end
+
