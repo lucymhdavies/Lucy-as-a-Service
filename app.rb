@@ -29,12 +29,11 @@ end
 # Wrapper for the main /laas slash command
 post '/slack-slash' do
 
+	logger.info "New request: #{params.inspect}"
+
 	unless from_slack?( params['token'] )
 		slack_secret_message "Doesn't look like you're calling the API from Slack, buddy!"
 	end
-
-	# Hacky logger
-	warn params.inspect
 
 	begin
 		# TODO: pick these from a hash
