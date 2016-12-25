@@ -84,6 +84,7 @@ post '/slack-slash' do
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
 	rescue Exception => e
+		logger.error e.message + "\n" + e.backtrace.inspect
 		if params['user_name'] == "daviesl"
 			slack_secret_message "Error!\n\n\`\`\`" + e.backtrace.inspect + "\n\`\`\`"
 		else
