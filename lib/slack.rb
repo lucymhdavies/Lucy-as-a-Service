@@ -1,6 +1,7 @@
 
 def user_is_admin?( team_id, user_id )
 	# TODO: is user_id in laas:config:#{team_id}:admins ?
+	logger.debug "Is #{user_id}@#{team_id} an admin of this LaaS instance?"
 	return true
 end
 
