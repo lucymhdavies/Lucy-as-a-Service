@@ -24,10 +24,10 @@ def say_message
 	end
 
 	task = Thread.new {
-		message_text = params['text'].sub(/save */, "")
+		message_text = params['text'].sub(/say */, "")
 		post_data = slack_message message_text
 		RestClient.post(params['response_url'], post_data )
 	}
 
-	slack_secret_message ""
+	slack_secret_message "Sent"
 end

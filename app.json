@@ -9,6 +9,14 @@
 		},
 		"SLACK_API_TOKEN" : {
 			"description" : "API Token for interacting with Slack"
+		},
+		"REDIS_URL" : {
+			"description" : "URL for Redis DB",
+			"value" : "redis://127.0.0.1:6380"
+		},
+		"RACK_ENV" : {
+			"description" : "production / development / test",
+			"value" : "development"
 		}
 	}
 }

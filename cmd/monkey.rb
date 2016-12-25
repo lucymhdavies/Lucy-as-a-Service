@@ -53,8 +53,8 @@ def can_use_monkey?
 
 	# If we have user groups in the API return...
 	if res['usergroups']
-		warn "Usergroups:"
-		warn res['usergroups'].inspect
+		logger.debug "Usergroups:"
+		logger.debug res['usergroups'].inspect
 	
 		# Filter returned usergroups by name
 		$monkey_group = res['usergroups'].select do |usergroup|
@@ -62,15 +62,15 @@ def can_use_monkey?
 		end
 		$monkey_group = $monkey_group[0]
 
-		warn "Monkey Group:"
-		warn $monkey_group
+		logger.debug "Monkey Group:"
+		logger.debug $monkey_group
 
 		# If we have a monkey group (enabled or disabled)
 		if $monkey_group
 			# Get all enabled groups
 			res2 = Slack.usergroups_list( {:include_disabled => 0} )
-			warn "Enabled Usergroups:"
-			warn res2['usergroups']
+			logger.debug "Enabled Usergroups:"
+			logger.debug res2['usergroups']
 
 			# Is the monkey group in the list of enabled groups?
 			$monkey_group_enabled = res2['usergroups'].select do |usergroup|
@@ -96,10 +96,10 @@ def monkey_group_enabled?
 
 	# If there exists an enabled monkey group, return true, else return false
 	if $monkey_group_enabled != []
-		warn "Monkey group enabled"
+		logger.debug "Monkey group enabled"
 		true
 	else
-		warn "Monkey group disabled"
+		logger.debug "Monkey group disabled"
 		false
 	end
 end
@@ -109,22 +109,22 @@ end
 # Will not summon users in list
 def monkey_list
 	if monkey_group_enabled?
-		warn "Listing monkeys"
+		logger.debug "Listing monkeys"
 
 		monkey_group_id = $monkey_group['id']
 
 		message = "Users in <!subteam^#{monkey_group_id}|#{ENV['SLACK_MONKEY_GROUP']}>:\n\n"
 
-		warn "Monkey Group:"
-		warn $monkey_group.inspect
+		logger.debug "Monkey Group:"
+		logger.debug $monkey_group.inspect
 
-		warn "Iterating through monkey group users"
+		logger.debug "Iterating through monkey group users"
 		$monkey_group['users'].each do |uid|
-			warn uid.inspect
+			logger.debug uid.inspect
 
 			user = Slack.users_info( :user => uid )
 			p = user['user']
-			warn "p = " + p.inspect
+			logger.debug "p = " + p.inspect
 
 			pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
 			message += "#{pt}\n"

@@ -4,8 +4,6 @@ def xkcd221
 	  # guaranteed to be random
 end
 
-# TODO: command to store message, command to playback message
-
 def iou
 	"Not implemented"
 
@@ -22,8 +20,6 @@ def iou
 	#
 	# then it should secret_message:
 	# @lucy owes you 3.00 GBP for <reason>
-	#
-	# Depends on DB
 end
 
 def summon
@@ -44,8 +40,9 @@ def summon
 end
 
 # TODO: Store these in a DB (DONE), along with how often they have been quoted
-# Slightly favour quotes which are newer
+# Slightly favour quotes which are newer?
 # Favour quotes which have higher scores (add some sort of liking mechanism later?)
+# Manage quotes with LaaS command?
 
 def quote
 	abstract_quote
@@ -73,6 +70,8 @@ def big_text
 	unless word && emoji
 		slack_secret_message "Insufficient parameters. Call with /laas big_text <emoji> <word>"
 	end
+
+# TODO: store font in external file(s)
 font = {
 'A' =>
 "XXXXX
@@ -236,6 +235,7 @@ XXXXX"
 	message = ""
 
 	word.scan(/\w/).each do |letter|
+		# TODO: Discard unsupported letters, or secret_message an error
 		row = font[letter.upcase].split("\n")
 		(0..4).each do |i|
 			rows[i] += " " + row[i]
