@@ -36,7 +36,6 @@ post '/slack-slash' do
 	end
 
 	begin
-		puts foo == bar
 		# TODO: pick these from a hash
 		case params['text'].split.first
 		when "", nil
