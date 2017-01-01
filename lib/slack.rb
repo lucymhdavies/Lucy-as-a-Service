@@ -20,7 +20,7 @@ def from_slack?( team_id, token )
 
 	r = $redis.get( "laas:config:#{team_id}:token_from_slack" )
 	if r.nil? || r == ""
-		logger.error "No token_from_slack defined for team #{team_id}. laas:config:#{team_id}:token_from_slack == '#{r.inspect}'"
+		logger.warn "No token_from_slack defined for team #{team_id}. laas:config:#{team_id}:token_from_slack == '#{r.inspect}'"
 		return false
 	end
 
@@ -50,7 +50,14 @@ end
 # Parse a string for slacky things
 def slack_parse( text )
 
-	jira_url = ENV['JIRA_URL'] || "https://jira.example.com/"
+	r = $redis.get( "laas:config:#{team_id}:jira_url" )
+	if r.nil? || r == ""
+		logger.warn "No jira_url defined for team #{team_id}. laas:config:#{team_id}:jira_url == '#{r.inspect}'"
+		jira_url = "https://jira.example.com/"
+	else
+		jira_url = r
+	end
+
 
 	# JIRA ticket match
 	# TODO: ensure this isn't part of another word
