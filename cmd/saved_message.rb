@@ -1,7 +1,7 @@
 
 def save_message
 	saved_message_text = params['text'].sub(/save */, "")
-	saved_message_text = slack_parse saved_message_text
+	saved_message_text = slack_parse( params['team_id'], saved_message_text )
 
 
 	$redis.setex( "laas:saved_message:#{params['user_id']}", 60 * 30, saved_message_text )

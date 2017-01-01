@@ -85,7 +85,7 @@ post '/slack-slash' do
 		end
 	rescue Exception => e
 		logger.error e.message + "\n" + e.backtrace.inspect
-		if params['user_name'] == "daviesl"
+		if user_is_admin?( params['team_id'], params['user_id'] )
 			slack_secret_message "Error!\n\n\`\`\`" + e.backtrace.inspect + "\n\`\`\`"
 		else
 			slack_secret_message "Error!\n" + e.message
