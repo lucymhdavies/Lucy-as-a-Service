@@ -14,12 +14,23 @@ def user_is_admin?( team_id, user_id )
 	return admins.include? user_id
 end
 
-def from_slack?( token )
-	# TODO: is token valid?
+def from_slack?( team_id, token )
+	logger.debug "Checking if Slack token is valid for this team"
 	# i.e. did this request really come from Slack?
 
-	# Disable for LaaS Develop (in config.ru)
-	return true
+	r = $redis.get( "laas:config:#{team_id}:token_from_slack" )
+	if r.nil? || r == ""
+		logger.error "No token_from_slack defined for team #{team_id}. laas:config:#{team_id}:token_from_slack == '#{r.inspect}'"
+		return false
+	end
+
+	# TODO: Disable for LaaS Develop (in config.ru)
+	if r == token
+		return true
+	else
+		logger.error "Invalid token_from_slack for team #{team_id}!"
+		return false
+	end
 end
 
 
