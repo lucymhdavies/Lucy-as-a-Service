@@ -11,7 +11,6 @@ def redis_link
 	r = $redis.get( "laas:config:redis_admin" )
 
 	if r.nil? || r == ""
-		#return "Sorry. Don't know the DB URL :disappointed:"
 		r = request.scheme + "://" + request.host + ":" + request.port.to_s + "/db"
 	end
 
