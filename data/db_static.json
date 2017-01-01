@@ -7,6 +7,10 @@
     "type": "string",
     "value": "PLACEHOLDER VALUE"
   },
+  "laas:config:team_specific:jira_url": {
+    "type": "string",
+    "value": "PLACEHOLDER VALUE"
+  },
   "laas:quotes:default": {
     "type": "set",
     "value": [
