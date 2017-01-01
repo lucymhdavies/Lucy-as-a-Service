@@ -8,6 +8,13 @@ task :db_export do
 		# Skip any temporary keys
 		next unless ttl == -1
 
+		# Skip any test keys
+		next if key.start_with? "laas:test:"
+
+		# Skip team-specific keys
+		# TODO: add placeholder data to output?
+		next if key.start_with? "laas:config:T"
+
 		STDERR.puts
 		STDERR.puts "================================================================================"
 		STDERR.puts key
