@@ -1,8 +1,17 @@
 
 def user_is_admin?( team_id, user_id )
-	# TODO: is user_id in laas:config:#{team_id}:admins ?
 	logger.debug "Is #{user_id}@#{team_id} an admin of this LaaS instance?"
-	return true
+
+	admins = $redis.smembers("laas:config:#{team_id}:admins")
+	if admins.nil? || admins == ""
+		# No admins, trivially the user is not an admin
+		logger.warn "No admins defined for team #{team_id}. laas:config:#{team_id}:admins == '#{admins.inspect}'"
+		return false
+	end
+
+	logger.debug "Admins: #{admins.inspect}"
+
+	return admins.include? user_id
 end
 
 def from_slack?( token )
