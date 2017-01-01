@@ -1,4 +1,8 @@
 def admin
+	unless user_is_admin?( params['team_id'], params['user_id'] )
+		return slack_secret_message "These commands are for admins only!"
+	end
+
 	case params['text'].chomp
 	when "admin db"
 		slack_secret_message redis_link
