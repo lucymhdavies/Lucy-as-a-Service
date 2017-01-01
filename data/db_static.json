@@ -34,9 +34,22 @@
     {
       "type": "set",
       "value": [
-        "Default Quote 1",
-        "Default Quote 2",
-        "Default Quote 3"
+        ":cali: pscli is love. pscli is life. pscli is all. pscli. :cali:",
+        "@adamski_p: Java is a language created by people to show off how clever they are.",
+        "@adamski_p: You have written code which can elevate itself to root privilleges? Sudo code?",
+        "@daviesl: Big warehouse type supermarket. Like if Tesco had sex with America",
+        "@daviesl: Disclaimer: I may or may not be funny",
+        "@daviesl: I make the automagic happen",
+        "@daviesl: I remembered [the postcode] because it has 'BJ' in it. And I'm 13 years old and amused by such things.",
+        "@daviesl: One day, my son, all this will be in Jenkins",
+        "@gavin.cox : \"... it being my birthday some time this year\"\n@michaeltr : \"Yes, that's how birthdays work\"",
+        "@marshawi: I used to have a swimming pool, but it was on a different continent, so I didn't use it that often",
+        "@marshawi: I’ve actually looked at commissioning a bronze statue of me",
+        "@philgrayson: The ultimate in automation - keep trying until it works",
+        "I dropped my laptop in the ocean, and now theres a dell rolling in the deep.",
+        "I'm so low level, I might as well be building this server out of sticks.",
+        "So exciting! It's like a reverse unboxing video. So... a boxing video. Except I'm not punching anybody.",
+        "You can never be too careful when it comes to eels."
       ]
     }
   ],
@@ -50,6 +63,7 @@
         "LaaS",
         "Lambda",
         "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
+        "Loathing",
         "Loquacity",
         "Lucy",
         "Lulz"
