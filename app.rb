@@ -36,6 +36,7 @@ post '/slack-slash' do
 	end
 
 	begin
+		puts foo == bar
 		# TODO: pick these from a hash
 		case params['text'].split.first
 		when "", nil
@@ -84,9 +85,9 @@ post '/slack-slash' do
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
 	rescue Exception => e
-		logger.error e.message + "\n" + e.backtrace.inspect
+		logger.error e.message + "\n" + e.backtrace.join("\n")
 		if user_is_admin?( params['team_id'], params['user_id'] )
-			slack_secret_message "Error!\n\n\`\`\`" + e.backtrace.inspect + "\n\`\`\`"
+			slack_secret_message "Error!\n\n\`\`\`" + e.backtrace.join("\n") + "\n\`\`\`"
 		else
 			slack_secret_message "Error!\n" + e.message
 		end
