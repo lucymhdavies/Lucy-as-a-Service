@@ -1,10 +1,24 @@
 {
+  "laas:config:team_specific:team_domain": {
+    "type": "string",
+    "value": "PLACEHOLDER VALUE"
+  },
+  "laas:config:team_specific:token_from_slack": {
+    "type": "string",
+    "value": "PLACEHOLDER VALUE"
+  },
   "laas:quotes:default": {
     "type": "set",
     "value": [
       "Default Quote 3",
       "Default Quote 1",
       "Default Quote 2"
+    ]
+  },
+  "laas:config:team_specific:admins": {
+    "type": "set",
+    "value": [
+      "PLACEHOLDER SET MEMBER"
     ]
   },
   "laas:quotes:laas": {

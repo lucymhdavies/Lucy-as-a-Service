@@ -26,6 +26,7 @@ def summon
 	summon_item = params['text'].sub(/summon */, "")
 
 	# Special summons
+	# TODO: Store in DB?
 	case summon_item.strip
 	when "ghosts"
 		summon_item = "blinky pinky inky clyde"
