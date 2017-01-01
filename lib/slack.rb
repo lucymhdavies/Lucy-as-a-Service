@@ -17,7 +17,7 @@ end
 def from_slack?( team_id, token )
 	logger.debug "Checking if Slack token is valid for this team"
 	# i.e. did this request really come from Slack?
-	return boo = rawr
+
 	r = $redis.get( "laas:config:#{team_id}:token_from_slack" )
 	if r.nil? || r == ""
 		logger.warn "No token_from_slack defined for team #{team_id}. laas:config:#{team_id}:token_from_slack == '#{r.inspect}'"
