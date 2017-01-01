@@ -1,7 +1,7 @@
 {
 	"name": "LMHD Lucy as a Service",
 	"description": "Lucy. But as a service.",
-	"image": "heroku/ruby"
+	"image": "heroku/ruby",
 	"env" : {
 		"JIRA_URL" : {
 			"description" : "URL for JIRA",
@@ -17,6 +17,12 @@
 		"RACK_ENV" : {
 			"description" : "production / development / test",
 			"value" : "development"
+		},
+		"REDIS_UI_USER" : {
+			"description" : "redis UI user"
+		},
+		"REDIS_UI_PASS" : {
+			"description" : "redis UI password"
 		}
 	}
 }
