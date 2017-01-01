@@ -26,4 +26,30 @@ configure :production do
     end
 end
 
-run Sinatra::Application
+# LaaS
+map "/" do
+	run Sinatra::Application
+end
+
+# DB Browser
+require "redis-browser"
+map "/db" do
+	settings = {
+		"connections" => {
+			"default" => {
+				"url" => ENV["REDIS_URI"]
+			}
+		}
+	}
+
+	RedisBrowser.configure(settings)
+
+	RedisBrowser::Web.class_eval do
+	  use Rack::Auth::Basic, "Protected Area" do |username, password|
+		username == ENV["REDIS_UI_USER"] && password == ENV["REDIS_UI_PASS"]
+	  end
+	end
+
+	run RedisBrowser::Web
+
+end

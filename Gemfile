@@ -12,3 +12,4 @@ gem 'slack-api'
 gem 'rest-client'
 gem 'redis', '~>3.2'
 
+gem 'redis-browser'
