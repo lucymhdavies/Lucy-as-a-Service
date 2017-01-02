@@ -34,7 +34,7 @@ GEM
       rack (>= 1.0)
     rake (11.1.2)
     redis (3.3.2)
-    redis-browser (0.5.0)
+    redis-browser (0.5.1)
       coffee-script
       multi_json
       redis
