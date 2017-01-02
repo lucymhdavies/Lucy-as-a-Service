@@ -53,8 +53,8 @@ def can_use_monkey?
 
 	# If we have user groups in the API return...
 	if res['usergroups']
-		logger.debug "Usergroups:"
-		logger.debug res['usergroups'].inspect
+		logger.debug(__method__){ "Usergroups:" }
+		logger.debug(__method__){ res['usergroups'].inspect }
 	
 		# Filter returned usergroups by name
 		$monkey_group = res['usergroups'].select do |usergroup|
@@ -62,15 +62,15 @@ def can_use_monkey?
 		end
 		$monkey_group = $monkey_group[0]
 
-		logger.debug "Monkey Group:"
-		logger.debug $monkey_group
+		logger.debug(__method__){ "Monkey Group:" }
+		logger.debug(__method__){ $monkey_group }
 
 		# If we have a monkey group (enabled or disabled)
 		if $monkey_group
 			# Get all enabled groups
 			res2 = Slack.usergroups_list( {:include_disabled => 0} )
-			logger.debug "Enabled Usergroups:"
-			logger.debug res2['usergroups']
+			logger.debug(__method__){ "Enabled Usergroups:" }
+			logger.debug(__method__){ res2['usergroups'] }
 
 			# Is the monkey group in the list of enabled groups?
 			$monkey_group_enabled = res2['usergroups'].select do |usergroup|
@@ -96,10 +96,10 @@ def monkey_group_enabled?
 
 	# If there exists an enabled monkey group, return true, else return false
 	if $monkey_group_enabled != []
-		logger.debug "Monkey group enabled"
+		logger.debug(__method__){ "Monkey group enabled" }
 		true
 	else
-		logger.debug "Monkey group disabled"
+		logger.debug(__method__){ "Monkey group disabled" }
 		false
 	end
 end
@@ -109,22 +109,22 @@ end
 # Will not summon users in list
 def monkey_list
 	if monkey_group_enabled?
-		logger.debug "Listing monkeys"
+		logger.debug(__method__){ "Listing monkeys" }
 
 		monkey_group_id = $monkey_group['id']
 
 		message = "Users in <!subteam^#{monkey_group_id}|#{ENV['SLACK_MONKEY_GROUP']}>:\n\n"
 
-		logger.debug "Monkey Group:"
-		logger.debug $monkey_group.inspect
+		logger.debug(__method__){ "Monkey Group:" }
+		logger.debug(__method__){ $monkey_group.inspect }
 
-		logger.debug "Iterating through monkey group users"
+		logger.debug(__method__){ "Iterating through monkey group users" }
 		$monkey_group['users'].each do |uid|
-			logger.debug uid.inspect
+			logger.debug(__method__){ uid.inspect }
 
 			user = Slack.users_info( :user => uid )
 			p = user['user']
-			logger.debug "p = " + p.inspect
+			logger.debug(__method__){ "p = " + p.inspect }
 
 			pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
 			message += "#{pt}\n"

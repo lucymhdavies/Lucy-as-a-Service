@@ -28,8 +28,7 @@ end
 # TODO: Verify Slack auth token
 # Wrapper for the main /laas slash command
 post '/slack-slash' do
-
-	logger.info "New request: #{params.inspect}"
+	logger.debug(__method__){ "New request: #{params.inspect}" }
 
 	unless from_slack?( params['team_id'], params['token'] )
 		return slack_secret_message "Doesn't look like you're calling the API from Slack, buddy!"
@@ -84,7 +83,7 @@ post '/slack-slash' do
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
 	rescue Exception => e
-		logger.error e.message + "\n" + e.backtrace.join("\n")
+		logger.error(__method__){ e.message + "\n" + e.backtrace.join("\n") }
 		if user_is_admin?( params['team_id'], params['user_id'] )
 			slack_secret_message "Error!\n\n\`\`\`" + e.backtrace.join("\n") + "\n\`\`\`"
 		else
