@@ -87,5 +87,77 @@
         "You're probably thinking is this gonna affect my life? And I've been thinking about this and the answer is... Yes it is."
       ]
     }
+  ],
+  [
+    "laas:roulette:coffee:pods",
+    {
+      "type": "set",
+      "value": [
+        "Espresso Forte",
+        "Espresso Leggero",
+        "Espresso Origin Brazil",
+        "Lungo Forte",
+        "Lungo Origin Guatamala",
+        "Ristretto",
+        "Ristretto Intenso",
+        "Ristretto Origin India"
+      ]
+    }
+  ],
+  [
+    "laas:roulette:coffee:styles",
+    {
+      "type": "set",
+      "value": [
+        "Americano",
+        "Americano, with Milk",
+        "Espresso",
+        "Espresso Mocha",
+        "Espresso, with Milk",
+        "Latte",
+        "Mocha"
+      ]
+    }
+  ],
+  [
+    "laas:roulette:lunch",
+    {
+      "type": "set",
+      "value": [
+        "Burger King",
+        "Edo Sushi",
+        "KFC",
+        "M&S",
+        "Oisoi",
+        "Sainsburys",
+        "Smokes!",
+        "Subway",
+        "Tesco"
+      ]
+    }
+  ],
+  [
+    "laas:roulette:noodle:choices",
+    {
+      "type": "set",
+      "value": [
+        "Beef & Tomato",
+        "Original Curry"
+      ]
+    }
+  ],
+  [
+    "laas:roulette:noodle:snark",
+    {
+      "type": "set",
+      "value": [
+        "Don't make me make a bad choice for you!",
+        "Fine. If you insist. Have CHOICE",
+        "I'd sooner pull out all my diodes than recommend one of those for you. But if you demand it of me, then... CHOICE",
+        "No.",
+        "The least bad option seems to be CHOICE",
+        "Wow. Well, if you really want to subject yourself to that, go with CHOICE"
+      ]
+    }
   ]
 ]
