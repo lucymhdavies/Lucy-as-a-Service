@@ -1,52 +1,91 @@
-{
-  "laas:config:team_specific:team_domain": {
-    "type": "string",
-    "value": "PLACEHOLDER VALUE"
-  },
-  "laas:config:team_specific:token_from_slack": {
-    "type": "string",
-    "value": "PLACEHOLDER VALUE"
-  },
-  "laas:quotes:default": {
-    "type": "set",
-    "value": [
-      "Default Quote 3",
-      "Default Quote 1",
-      "Default Quote 2"
-    ]
-  },
-  "laas:config:team_specific:admins": {
-    "type": "set",
-    "value": [
-      "PLACEHOLDER SET MEMBER"
-    ]
-  },
-  "laas:quotes:laas": {
-    "type": "set",
-    "value": [
-      "LOL",
-      "LaaS",
-      "Lambda",
-      "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
-      "Lucy",
-      "Loquacity",
-      "L",
-      "Lulz"
-    ]
-  },
-  "laas:quotes:red_dwarf": {
-    "type": "set",
-    "value": [
-      "He helped me break my programming, sir. Over the years I have managed to develop some serious character faults of which I'm extremely proud! I'm even able to lie to a modest standard, for example: 'you have a very fine hair cut!'",
-      "Now kindly cluck off before I extract your giblets and shove a large, seasoned onion between the lips you never kiss with.",
-      "Smeg!",
-      "Davey, come oooon. You ve got a virus, it's fatal, it happens. It doesn't mean we can't be friends!",
-      "The way the light catches all the angles in your head, it's enchanting.",
-      "I don't want you to think of me as someone who's dead. More of someone who's no longer a threat to your marriages.",
-      "Hermann Göring would've been more of a laugh than Rimmer! I mean, OK, he was a drug-crazed transvestite, but at least we could've gone dancing.",
-      "What the hell's happened to my teeth?! I can open beer bottles with my overbite!",
-      "I tell you one thing: I've been to a parallel universe, I've seen time running backwards, I've played pool with planets, and I've given birth to twins, but I never thought in my entire life I'd taste an edible Pot Noodle.",
-      "You're probably thinking is this gonna affect my life? And I've been thinking about this and the answer is... Yes it is."
-    ]
-  }
-}
+[
+  [
+    "laas:config:team_specific:admins",
+    {
+      "type": "set",
+      "value": [
+        "PLACEHOLDER SET MEMBER"
+      ]
+    }
+  ],
+  [
+    "laas:config:team_specific:jira_url",
+    {
+      "type": "string",
+      "value": "PLACEHOLDER VALUE"
+    }
+  ],
+  [
+    "laas:config:team_specific:team_domain",
+    {
+      "type": "string",
+      "value": "PLACEHOLDER VALUE"
+    }
+  ],
+  [
+    "laas:config:team_specific:token_from_slack",
+    {
+      "type": "string",
+      "value": "PLACEHOLDER VALUE"
+    }
+  ],
+  [
+    "laas:quotes:default",
+    {
+      "type": "set",
+      "value": [
+        ":cali: pscli is love. pscli is life. pscli is all. pscli. :cali:",
+        "@adamski_p: Java is a language created by people to show off how clever they are.",
+        "@adamski_p: You have written code which can elevate itself to root privilleges? Sudo code?",
+        "@daviesl: Big warehouse type supermarket. Like if Tesco had sex with America",
+        "@daviesl: Disclaimer: I may or may not be funny",
+        "@daviesl: I make the automagic happen",
+        "@daviesl: I remembered [the postcode] because it has 'BJ' in it. And I'm 13 years old and amused by such things.",
+        "@daviesl: One day, my son, all this will be in Jenkins",
+        "@gavin.cox : \"... it being my birthday some time this year\"\n@michaeltr : \"Yes, that's how birthdays work\"",
+        "@marshawi: I used to have a swimming pool, but it was on a different continent, so I didn't use it that often",
+        "@marshawi: I’ve actually looked at commissioning a bronze statue of me",
+        "@philgrayson: The ultimate in automation - keep trying until it works",
+        "I dropped my laptop in the ocean, and now theres a dell rolling in the deep.",
+        "I'm so low level, I might as well be building this server out of sticks.",
+        "So exciting! It's like a reverse unboxing video. So... a boxing video. Except I'm not punching anybody.",
+        "You can never be too careful when it comes to eels."
+      ]
+    }
+  ],
+  [
+    "laas:quotes:laas",
+    {
+      "type": "set",
+      "value": [
+        "L",
+        "LOL",
+        "LaaS",
+        "Lambda",
+        "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch",
+        "Loathing",
+        "Loquacity",
+        "Lucy",
+        "Lulz"
+      ]
+    }
+  ],
+  [
+    "laas:quotes:red_dwarf",
+    {
+      "type": "set",
+      "value": [
+        "Davey, come oooon. You ve got a virus, it's fatal, it happens. It doesn't mean we can't be friends!",
+        "He helped me break my programming, sir. Over the years I have managed to develop some serious character faults of which I'm extremely proud! I'm even able to lie to a modest standard, for example: 'you have a very fine hair cut!'",
+        "Hermann Göring would've been more of a laugh than Rimmer! I mean, OK, he was a drug-crazed transvestite, but at least we could've gone dancing.",
+        "I don't want you to think of me as someone who's dead. More of someone who's no longer a threat to your marriages.",
+        "I tell you one thing: I've been to a parallel universe, I've seen time running backwards, I've played pool with planets, and I've given birth to twins, but I never thought in my entire life I'd taste an edible Pot Noodle.",
+        "Now kindly cluck off before I extract your giblets and shove a large, seasoned onion between the lips you never kiss with.",
+        "Smeg!",
+        "The way the light catches all the angles in your head, it's enchanting.",
+        "What the hell's happened to my teeth?! I can open beer bottles with my overbite!",
+        "You're probably thinking is this gonna affect my life? And I've been thinking about this and the answer is... Yes it is."
+      ]
+    }
+  ]
+]

@@ -30,6 +30,7 @@ task :db_export do
 			if key.start_with? "laas:config:T"
 				val = ["PLACEHOLDER SET MEMBER"]
 			end
+			val = val.sort
 		else
 	 		STDERR.puts $redis.dump( key ).inspect
 			raise "Unsupported type: #{type}"
@@ -51,6 +52,8 @@ task :db_export do
 
 	STDERR.puts
 	STDERR.puts "================================================================================"
+
+	db = db.sort
 
 	puts JSON.generate(db)
 end
