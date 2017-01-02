@@ -11,5 +11,5 @@ end
 
 at_exit do
 	# Placeholder for any cleanup code needed when app shuts down
-	logger.info "Bye"
+	logger.info("Cleanup") {"Bye"}
 end
