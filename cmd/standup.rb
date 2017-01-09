@@ -167,7 +167,7 @@ def standup_next
 	if $last_standup_next.nil? or ($last_standup_next + 2 < Time.now)
 		$last_standup_next = Time.now
 	else
-		return slack_secret_message "Slow down!"
+		return slack_secret_message "Slow down!\nYou can only run `standup skip` or `standup next` once every two seconds"
 	end
 
 	# Is the standup already over?
@@ -225,7 +225,7 @@ def standup_skip
 		# Because we're going to call standup_next afterwards, just unset this
 		$last_standup_next = nil
 	else
-		return slack_secret_message "Slow down!"
+		return slack_secret_message "Slow down!\nYou can only run `standup skip` or `standup next` once every two seconds"
 	end
 
 	$standup_participants_skipped.push $last_standup_participant
