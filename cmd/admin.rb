@@ -29,6 +29,7 @@ def say_message
 
 	task = Thread.new {
 		message_text = params['text'].sub(/say */, "")
+		message_text = slack_parse( params['team_id'], message_text )
 		post_data = slack_message message_text
 		RestClient.post(params['response_url'], post_data )
 	}
