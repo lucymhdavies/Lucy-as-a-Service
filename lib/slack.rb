@@ -44,11 +44,14 @@ end
 def slack_message_as! ( text, uid, channel )
 	message_text = ERB::Util.url_encode(text)
 	user = Slack.users_info( :user => uid )
+	username = ERB::Util.url_encode(user['user']['real_name'])
+	icon_url = user['user']['image_192']
 
 	post_url = "https://slack.com/api/chat.postMessage?" +
 		"token=#{ENV["SLACK_API_TOKEN"]}" +
 		"&channel=#{channel}" +
-		"&username=#{user['user']['name']}" +
+		"&username=#{username}" +
+		"&icon_url=#{icon_url}" +
 		"&as_user=false" +
 		"&text=#{message_text}"
 
