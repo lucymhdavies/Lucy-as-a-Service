@@ -43,6 +43,7 @@ def me_say_message
 		message_text = slack_parse( params['team_id'], message_text )
 		post_data = slack_message_as( message_text, params['user_id'], params['channel_id'] )
 		post_url = "https://slack.com/api/chat.postMessage?"
+		logger.debug("Sending message:\n" + post_data + "\nto\n" + post_url)
 		RestClient.post(post_url, post_data )
 	}
 
