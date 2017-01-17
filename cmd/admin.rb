@@ -41,16 +41,7 @@ def me_say_message
 	task = Thread.new {
 		message_text = params['text'].sub(/isay */, "")
 		message_text = slack_parse( params['team_id'], message_text )
-		message_text = ERB::Util.url_encode(message_text)
-		post_data = slack_message_as( message_text, params['user_id'], params['channel_id'] )
-		post_url = "https://slack.com/api/chat.postMessage?" +
-			"token=#{ENV["SLACK_API_TOKEN"]}" +
-			"&channel=#{params['channel_id']}" +
-			"&username=#{params['user_id']}" +
-			"&as_user=true" +
-			"&text=#{message_text}"
-		logger.debug("Sending message to\n" + post_url)
-		RestClient.get(post_url)
+		slack_message_as!( message_text, params['user_id'], params['channel_id'] )
 	}
 
 	slack_secret_message "Sent"

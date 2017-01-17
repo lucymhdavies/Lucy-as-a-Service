@@ -41,14 +41,16 @@ def slack_message ( text )
 	})
 end
 
-def slack_message_as ( text, user, channel )
-	json ({
-		"token"         => ENV["SLACK_API_TOKEN"],
-		"channel"       => channel,
-		"username"      => user,
-		"as_user"       => true,
-		"text"          => text
-	})
+def slack_message_as! ( text, user, channel )
+	message_text = ERB::Util.url_encode(text)
+	post_url = "https://slack.com/api/chat.postMessage?" +
+		"token=#{ENV["SLACK_API_TOKEN"]}" +
+		"&channel=#{channel}" +
+		"&username=#{user}" +
+		"&as_user=true" +
+		"&text=#{message_text}"
+
+	RestClient.get(post_url)
 end
 
 def slack_secret_message ( text )
