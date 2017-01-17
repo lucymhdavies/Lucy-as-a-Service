@@ -79,6 +79,8 @@ post '/slack-slash' do
 			donut
 		when "say"
 			say_message
+		when "isay"
+			me_say_message
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
