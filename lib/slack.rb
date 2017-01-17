@@ -41,6 +41,16 @@ def slack_message ( text )
 	})
 end
 
+def slack_message_as ( text, user, channel )
+	json ({
+		"token"         => ENV["SLACK_API_TOKEN"],
+		"channel"       => channel,
+		"username"      => user,
+		"as_user"       => true,
+		"text"          => text
+	})
+end
+
 def slack_secret_message ( text )
 	json ({
 		"text"          => text

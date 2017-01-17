@@ -36,3 +36,15 @@ def say_message
 
 	slack_secret_message "Sent"
 end
+
+def me_say_message
+	task = Thread.new {
+		message_text = params['text'].sub(/isay */, "")
+		message_text = slack_parse( params['team_id'], message_text )
+		post_data = slack_message_as( message_text, params['user_id'], params['channel_id'] )
+		post_url = "https://slack.com/api/chat.postMessage?"
+		RestClient.post(post_url, post_data )
+	}
+
+	slack_secret_message "Sent"
+end
