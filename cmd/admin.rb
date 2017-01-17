@@ -42,9 +42,14 @@ def me_say_message
 		message_text = params['text'].sub(/isay */, "")
 		message_text = slack_parse( params['team_id'], message_text )
 		post_data = slack_message_as( message_text, params['user_id'], params['channel_id'] )
-		post_url = "https://slack.com/api/chat.postMessage?"
-		logger.debug("Sending message:\n" + post_data + "\nto\n" + post_url)
-		RestClient.post(post_url, post_data )
+		post_url = "https://slack.com/api/chat.postMessage?" +
+			"token=#{ENV["SLACK_API_TOKEN"]}" +
+			"&channel=#{params['channel_id']}" +
+			"&username=#{params['user_id']}" +
+			"&as_user=true" +
+			"&text=#{message_text}"
+		logger.debug("Sending message to\n" + post_url)
+		RestClient.get(post_url)
 	}
 
 	slack_secret_message "Sent"
