@@ -24,10 +24,13 @@ def replay_message
 		task = Thread.new {
 			sleep(1)
 			slack_message_as!( message, params['user_id'], params['channel_id'] )
+
 			sleep(2)
 			post_data = standup_next
 			RestClient.post(params['response_url'], post_data )
 		}
+		# TODO: check if LaaS has permission to post directly to this channel
+		# If not, replay the message as LaaS instead
 		slack_message "Acquiring saved standup message..."
 	else
 		slack_message message
