@@ -49,7 +49,7 @@ def slack_message_as! ( text, uid, channel )
 		"token=#{ENV["SLACK_API_TOKEN"]}" +
 		"&channel=#{channel}" +
 		"&username=#{user['user']['name']}" +
-		"&as_user=true" +
+		"&as_user=false" +
 		"&text=#{message_text}"
 
 	RestClient.get(post_url)
