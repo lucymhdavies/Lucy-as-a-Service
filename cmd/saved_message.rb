@@ -26,8 +26,11 @@ def replay_message
 			post_data = standup_next
 			RestClient.post(params['response_url'], post_data )
 		}
+		slack_message_as!( message, params['user_id'], params['channel_id'] )
+		slack_secret_message "Sent"
+	else
+		slack_message message
 	end
 
-	slack_message message
 end
 
