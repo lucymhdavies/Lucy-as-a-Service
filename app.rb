@@ -73,7 +73,7 @@ post '/slack-slash' do
 			big_text
 		when "clear"
 			clear
-		when "admin"
+		when "admin", "sudo"
 			admin
 		when "donut"
 			donut

@@ -4,8 +4,10 @@ def admin
 	end
 
 	case params['text'].chomp
-	when "admin db"
+	when "admin db", "sudo db"
 		slack_secret_message redis_link
+	when "admin version", "sudo version"
+		slack_secret_message "Version: #{ENV['HEROKU_RELEASE_VERSION']}\nDescription: #{ENV['HEROKU_SLUG_DESCRIPTION']}"
 	else
 		slack_secret_message "I don't know what to do with: #{params['text'].chomp}"
 	end
