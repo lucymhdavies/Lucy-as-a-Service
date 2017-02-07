@@ -60,7 +60,7 @@ def abstract_quote( list="default" )
 		return slack_secret_message "No #{list} quotes in DB (yet)"
 	end
 
-	slack_message quotes.sample
+	slack_message slack_parse( params['team_id'], quotes.sample )
 end
 
 
