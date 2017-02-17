@@ -68,7 +68,7 @@ def abstract_quote( list="default", filter=nil )
 
 		quotes.select! do |quote|
 			logger.debug quote
-			if quote.include? filter
+			if quote.upcase.include? filter.upcase
 				logger.debug "Match"
 			end
 		end
