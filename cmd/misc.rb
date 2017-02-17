@@ -45,22 +45,45 @@ end
 # Favour quotes which have higher scores (add some sort of liking mechanism later?)
 # Manage quotes with LaaS command?
 
+
+# TODO: if user requests a quote with a username, then 
 def quote
-	abstract_quote
+	quote_filter = params['text'].sub(/quote */, "").strip
+	quote_filter = nil if quote_filter == ""
+
+	abstract_quote "default", quote_filter
 end
 
 def red_dwarf_quote
 	abstract_quote "red_dwarf"
 end
 
-def abstract_quote( list="default" )
+def abstract_quote( list="default", filter=nil )
 	quotes = $redis.smembers( "laas:quotes:#{list}" )
 
-	if quotes.nil? || quotes == ""
-		return slack_secret_message "No #{list} quotes in DB (yet)"
+	if filter
+
+		logger.debug "Filter:"
+		logger.debug filter.inspect
+
+		quotes.select! do |quote|
+			logger.debug quote
+			if quote.include? filter
+				logger.debug "Match"
+			end
+		end
+
+		if quotes.nil? || quotes == "" || quotes.empty?
+			return slack_secret_message "No quotes match your filter"
+		end
 	end
 
-	slack_message slack_parse( params['team_id'], quotes.sample )
+	if quotes.nil? || quotes == "" || quotes.empty?
+		return slack_secret_message "No #{list} quotes in DB (yet)"
+	else
+		slack_message slack_parse( params['team_id'], quotes.sample )
+	end
+
 end
 
 
