@@ -307,3 +307,7 @@ end
 def donut
 	slack_message "<@#{params['user_name']}|#{params['user_name']}> is buying donuts for everybody! :donut:"
 end
+
+def version
+	slack_message "#{what_is_laas}\n\nVersion: #{ENV['HEROKU_RELEASE_VERSION']}\n#{ENV['HEROKU_SLUG_DESCRIPTION']}\nhttps://github.com/lucymhdavies/Lucy-as-a-Service/commit/#{ENV['HEROKU_SLUG_COMMIT']}"
+end

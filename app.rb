@@ -81,6 +81,8 @@ post '/slack-slash' do
 			say_message
 		when "isay"
 			me_say_message
+		when "version"
+			version
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
