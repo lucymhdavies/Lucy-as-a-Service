@@ -15,7 +15,10 @@
 # TODO: Avatar (square)
 # i.e. just pick it from gravatar
 
-
+# TODO: do this, but only for production
+# before do
+#   redirect request.url.sub('http', 'https') unless request.secure?
+# end
 
 get '/' do
 	"Yo"
