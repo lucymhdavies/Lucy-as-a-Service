@@ -15,10 +15,12 @@
 # TODO: Avatar (square)
 # i.e. just pick it from gravatar
 
-# TODO: do this, but only for production
-# before do
-#   redirect request.url.sub('http', 'https') unless request.secure?
-# end
+before do
+	# Based on http://stackoverflow.com/a/26675418
+	unless ( request.secure? || Sinatra::Application.environment != :production )
+		redirect request.url.sub('http', 'https')
+	end
+end
 
 get '/' do
 	"Yo"
