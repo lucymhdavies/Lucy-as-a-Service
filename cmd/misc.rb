@@ -44,6 +44,7 @@ end
 # Slightly favour quotes which are newer?
 # Favour quotes which have higher scores (add some sort of liking mechanism later?)
 # Manage quotes with LaaS command?
+# Enable team-specific (and maybe even channel specific?) quotes. If channel-specific quotes exist, use those. Else team. Else default.
 
 
 # TODO: if user requests a quote with a username, then 

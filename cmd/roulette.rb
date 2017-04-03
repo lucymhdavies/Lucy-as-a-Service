@@ -1,54 +1,39 @@
 
-# TODO: Pick these from a DB
 def coffee_roulette
-	coffee_pods = [
-		["Lungo Origin Guatamala", "Lungo Forte"],
-		["Espresso Forte", "Espresso Leggero", "Espresso Origin Brazil"],
-		["Ristretto", "Ristretto Origin India", "Ristretto Intenso"]
-	]
-	coffee_styles = [
-		["Espresso", "Espresso, with Milk", "Espresso Mocha"],
-		["Americano", "Americano, with Milk"],
-		["Latte"],
-		["Mocha"]
-	]
+	coffee_pods = $redis.smembers( "laas:roulette:coffee:pods" )
+	if coffee_pods.nil? || coffee_pods == ""
+		return slack_secret_message "No coffee_pods in DB (yet)"
+	end
 
-	["'" + coffee_pods.sample.sample + "'", "Pod,", coffee_styles.sample.sample].join(" ")
+	coffee_styles = $redis.smembers( "laas:roulette:coffee:styles" )
+	if coffee_styles.nil? || coffee_styles == ""
+		return slack_secret_message "No coffee_styles in DB (yet)"
+	end
+
+	slack_message "'#{coffee_pods.sample}' Pod, #{coffee_styles.sample}"
 end
 
-# TODO: Pick these from a DB
 def lunch_roulette
-	choices = [
-		"M&S",
-		"Oisoi",
-		"Smokes!",
-		"Sainsburys", "Tesco",
-		"Edo Sushi",
-		"Burger King", "KFC", "Subway"
-	]
+	choices = $redis.smembers( "laas:roulette:lunch" )
+	if choices.nil? || choices == ""
+		return slack_secret_message "No choices in DB (yet)"
+	end
 
 	choices.sample
 end
 
 def noodle_roulette
-	# TODO: No, seriously. Keep these in a DB
-	choices = [
-#		"Beef & Tomato",
-		"Original Curry",
-		"Chicken & Mushroom",
-		"Brazilian BBQ Steak"
-	]
+	choices = $redis.smembers( "laas:roulette:noodle:choices" )
+	if choices.nil? || choices == ""
+		return slack_secret_message "No choices in DB (yet)"
+	end
 
 	n = choices.sample
 
-	snark = [
-		"Wow. Well, if you really want to subject yourself to that, go with #{n}",
-		"The least bad option seems to be #{n}",
-		"Don't make me make a bad choice for you!",
-		"Fine. If you insist. Have #{n}",
-		"No.",
-		"I'd sooner pull out all my diodes than recommend one of those for you. But if you demand it of me, then... #{n}"
-	]
+	snark = $redis.smembers( "laas:roulette:noodle:snark" )
+	if snark.nil? || snark == ""
+		return slack_secret_message "No snark in DB (yet)"
+	end
 
-	snark.sample
+	snark.sample.sub(/CHOICE/, n)
 end
