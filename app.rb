@@ -15,7 +15,12 @@
 # TODO: Avatar (square)
 # i.e. just pick it from gravatar
 
-
+before do
+	# Based on http://stackoverflow.com/a/26675418
+	unless ( request.secure? || Sinatra::Application.environment != :production )
+		redirect request.url.sub('http', 'https')
+	end
+end
 
 get '/' do
 	"Yo"
@@ -73,7 +78,7 @@ post '/slack-slash' do
 			big_text
 		when "clear"
 			clear
-		when "admin"
+		when "admin", "sudo"
 			admin
 		when "donut"
 			donut
@@ -81,6 +86,8 @@ post '/slack-slash' do
 			say_message
 		when "isay"
 			me_say_message
+		when "version"
+			version
 		else
 			slack_secret_message "I don't know what to do with: #{params['text'].split.first}"
 		end
@@ -95,3 +102,11 @@ post '/slack-slash' do
 
 end
 
+
+# Let's Encrypt
+get '/.well-known/acme-challenge/:token' do
+	logger.debug "Acme request with token #{params['token']} (expecting #{ENV['ACME_TOKEN']})"
+	if params['token'] == ENV['ACME_TOKEN']
+		ENV['ACME_RESPONSE']
+	end
+end

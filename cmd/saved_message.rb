@@ -31,7 +31,7 @@ def replay_message
 		}
 		# TODO: check if LaaS has permission to post directly to this channel
 		# If not, replay the message as LaaS instead
-		slack_message "Acquiring saved standup message..."
+		slack_message "Acquiring saved standup message, on behalf of #{params['user_name']}..."
 	else
 		slack_message message
 	end

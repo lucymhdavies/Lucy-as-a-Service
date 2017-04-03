@@ -155,7 +155,7 @@ def standup_start
 		RestClient.post(params['response_url'], post_data )
 	}
 
-	slack_secret_message "Initiating Standup"
+	slack_message "Initiating Standup"
 end
 
 # When did somebody last type /laas standup next?
