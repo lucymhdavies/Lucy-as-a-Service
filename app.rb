@@ -101,12 +101,3 @@ post '/slack-slash' do
 	end
 
 end
-
-
-# Let's Encrypt
-get '/.well-known/acme-challenge/:token' do
-	logger.debug "Acme request with token #{params['token']} (expecting #{ENV['ACME_TOKEN']})"
-	if params['token'] == ENV['ACME_TOKEN']
-		ENV['ACME_RESPONSE']
-	end
-end
