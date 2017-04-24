@@ -12,10 +12,10 @@ task :db_backup do
 		# Skip any test keys
 		next if key.start_with? "laas:test:"
 
-		STDERR.puts
-		STDERR.puts "================================================================================"
+		#STDERR.puts
+		#STDERR.puts "================================================================================"
 		STDERR.puts key
-		STDERR.puts "================================================================================"
+		#STDERR.puts "================================================================================"
 
 		type = $redis.type( key )
 
@@ -31,7 +31,7 @@ task :db_backup do
 			raise "Unsupported type: #{type}"
 		end
 
-		STDERR.puts val.inspect
+		#STDERR.puts val.inspect
 
 		db[key] = {
 			:type  => type,
@@ -39,12 +39,12 @@ task :db_backup do
 		}
 	end
 
-	STDERR.puts
-	STDERR.puts "================================================================================"
+	#STDERR.puts
+	#STDERR.puts "================================================================================"
 
 	db = db.sort
 
-	puts JSON.generate(db)
+	#puts JSON.generate(db)
 
 	STDERR.puts
 	STDERR.puts "================================================================================"
