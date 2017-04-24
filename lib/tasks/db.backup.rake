@@ -1,3 +1,4 @@
+require 'aws-sdk'
 
 desc "Export DB to file"
 task :db_backup do
@@ -44,5 +45,20 @@ task :db_backup do
 	db = db.sort
 
 	puts JSON.generate(db)
+
+	STDERR.puts
+	STDERR.puts "================================================================================"
+	STDERR.puts "Storing in S3"
+	STDERR.puts "================================================================================"
+
+	Aws.config[:credentials] = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+
+	s3 = Aws::S3::Resource.new(region:'eu-west-1')
+	obj = s3.bucket('db-backups.laas.lmhd.me').object('laas_redis_backup.json')
+
+	# string data
+	obj.put(body: JSON.generate(db))
+
+
 end
 
