@@ -57,7 +57,12 @@ task :db_backup do
 	obj = s3.bucket('db-backups.laas.lmhd.me').object('laas_redis_backup.json')
 
 	# string data
-	obj.put(body: JSON.generate(db))
+	begin
+		obj.put(body: JSON.generate(db))
+	rescue Exception => e
+		puts "ERROR LaaS Unable to access S3 bucket:"
+		puts e.message
+	end
 
 
 end
