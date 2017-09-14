@@ -177,7 +177,7 @@ def standup_next
 
 	# Was this standup started with "standup next"?
 	if $standup_participants.empty?
-		return standup_start
+		return slack_message "There's no Standup at the moment. Try `standup start`"
 	end
 
 	p = $standup_participants.shift
