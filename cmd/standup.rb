@@ -131,7 +131,7 @@ def standup_start
 		$standup_over = false
 
 		$standup_participants.each do |p|
-			pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
+			pt = "<@#{p['id']}> - #{p['profile']['display_name']}"
 			second_response = second_response + "\n#{pt}"
 		end
 
@@ -182,7 +182,7 @@ def standup_next
 
 	p = $standup_participants.shift
 	$last_standup_participant = p
-	pt = "<@#{p['name']}|#{p['name']}>"
+	pt = "<@#{p['id']}>"
 
 	up_next = [
 		"You're up #{pt}",

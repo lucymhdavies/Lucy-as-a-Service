@@ -78,7 +78,8 @@ def slack_parse( team_id, text )
 
 	# Usernames are @bob --> <@bob|bob>
 	# TODO: ensure this isn't part of another word or email address or something.
-	text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
+	# No longer supported, but leaving the comment here for now
+	# text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
 
 	# TODO: Detect #channels
 	# Channels are <#C024BE7LR|general> (but there must be a way of doing this without knowing the channel id...)
