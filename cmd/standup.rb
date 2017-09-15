@@ -45,6 +45,8 @@ def populate_all_users
 end
 
 def standup_participants
+	# Clear out global (le suck) all_users list when starting a new standup
+	$all_users = []
 	populate_all_users
 
 	$standup_participants = []
@@ -105,7 +107,7 @@ def standup_done
 		message = message + "\n\nSkipped users:\n"
 
 		$standup_participants_skipped.each do |p|
-			pt = "<@#{p['name']}|#{p['name']}> - #{p['real_name']}"
+			pt = "<@#{p['id']}> - #{p['profile']['display_name']}"
 			message = message + "#{pt}\n"
 		end
 	end
