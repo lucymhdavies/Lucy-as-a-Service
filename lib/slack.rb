@@ -66,15 +66,8 @@ end
 
 # Parse a string for slacky things
 def slack_parse( team_id, text )
-	jira_url = $redis.get( "laas:config:#{team_id}:jira_url" )
-	if jira_url.nil? || jira_url == ""
-		logger.warn(__method__){ "No jira_url defined for team #{team_id}. laas:config:#{team_id}:jira_url == '#{jira_url.inspect}'" }
-		jira_url = "https://jira.example.com/"
-	end
 
-	# JIRA ticket match
-	# TODO: ensure this isn't part of another word
-	text = text.gsub( /\p{Alpha}+-\p{Digit}+/ , "<#{jira_url}browse/\\0|\\0>" )
+	slack_parse_jira( team_id, text )
 
 	# Usernames are @bob --> <@bob|bob>
 	# TODO: ensure this isn't part of another word or email address or something.
@@ -86,8 +79,66 @@ def slack_parse( team_id, text )
 	# Would probably require a local cache of all users, to speed things up
 	# text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
 
-	# TODO: Detect #channels
-	# Channels are <#C024BE7LR|general> (but there must be a way of doing this without knowing the channel id...)
+	text = slack_parse_channels( team_id, text )
+
+	text
+end
+
+def slack_parse_jira( team_id, text )
+	# JIRA ticket match
+	# TODO: ensure this isn't part of another word, by splitting up into words first
+
+	jira_url = $redis.get( "laas:config:#{team_id}:jira_url" )
+	if jira_url.nil? || jira_url == ""
+		logger.warn(__method__){ "No jira_url defined for team #{team_id}. laas:config:#{team_id}:jira_url == '#{jira_url.inspect}'" }
+		jira_url = "https://jira.example.com/"
+	end
+
+	logger.debug(__method__){ "Parsing for JIRA tickets" }
+
+	text = text.gsub( /\p{Alpha}+-\p{Digit}+/ , "<#{jira_url}browse/\\0|\\0>" )
+
+	logger.debug(__method__){ "After parsing for JIRA tickets: #{text}" }
+
+	text
+end
+
+def slack_parse_channels( team_id, text )
+	# Detect #channels
+	all_channels = Slack.channels_list["channels"]
+	if all_channels.nil?
+		logger.warn(__method__){ "Unable to list all Slack channels!" }
+		return text
+	end
+
+	logger.debug(__method__){ "Parsing for Slack channels" }
+
+	words = text.split( " " )
+	words.map! do |word|
+		# if this does not start with #, it's not a channel
+		# so just return it as is
+		unless word.start_with?('#')
+			word
+		else
+			# strip # from channel name
+			channel_name = word[1..-1]
+
+			# Does the named channel exist?
+			channel = all_channels.detect{ |channel| channel["name"] == channel_name }
+
+			# No. Return as plaintext
+			if channel.nil?
+				word
+			else
+				# Channels are <#C024BE7LR|general> (general is optional)
+				"<##{channel['id']}>"
+			end
+			
+		end
+	end
+	text = words.join( " " )
+
+	logger.debug(__method__){ "After parsing for Slack channels: #{text}" }
 
 	text
 end
