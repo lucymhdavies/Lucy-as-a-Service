@@ -30,8 +30,11 @@ def say_message
 	task = Thread.new {
 		message_text = params['text'].sub(/say */, "")
 		message_text = slack_parse( params['team_id'], message_text )
-		post_data = slack_message message_text
-		RestClient.post(params['response_url'], post_data )
+# TODO: only do this if public channel, or if LaaS is in the channel
+		slack_message_as_laas!(message_text, params['channel_id'])
+# TODO: else
+#		post_data = slack_message message_text
+#		RestClient.post(params['response_url'], post_data )
 	}
 
 	slack_secret_message "Sent"

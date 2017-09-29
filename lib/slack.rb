@@ -58,6 +58,19 @@ def slack_message_as! ( text, uid, channel )
 	RestClient.get(post_url)
 end
 
+# TODO: when there is a proper class for this, it should fallback to sending a message to the response_url
+def slack_message_as_laas! ( text, channel )
+	message_text = ERB::Util.url_encode(text)
+
+	post_url = "https://slack.com/api/chat.postMessage?" +
+		"token=#{ENV["SLACK_API_TOKEN"]}" +
+		"&channel=#{channel}" +
+		"&as_user=false" +
+		"&text=#{message_text}"
+
+	RestClient.get(post_url)
+end
+
 def slack_secret_message ( text )
 	json ({
 		"text"          => text
