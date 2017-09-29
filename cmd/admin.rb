@@ -6,8 +6,6 @@ def admin
 	case params['text'].chomp
 	when "admin db", "sudo db"
 		slack_secret_message redis_link
-	when "admin version", "sudo version"
-		slack_message "#{what_is_laas}\n\nVersion: #{ENV['HEROKU_RELEASE_VERSION']}\n#{ENV['HEROKU_SLUG_DESCRIPTION']}\nhttps://github.com/lucymhdavies/Lucy-as-a-Service/commit/#{ENV['HEROKU_SLUG_COMMIT']}"
 	else
 		slack_secret_message "I don't know what to do with: #{params['text'].chomp}"
 	end

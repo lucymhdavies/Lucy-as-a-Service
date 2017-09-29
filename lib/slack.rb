@@ -78,7 +78,12 @@ def slack_parse( team_id, text )
 
 	# Usernames are @bob --> <@bob|bob>
 	# TODO: ensure this isn't part of another word or email address or something.
-	# No longer supported, but leaving the comment here for now
+	#
+	# TODO: if this comes from /laas say or /laas isay, the message LaaS sees is something like:
+	# can I @daviesl mention when i /laas isay ?
+	# where "daviesl" is the deprecated user['name']
+	# So it would be nice if this could extract the user['id'] based on that.
+	# Would probably require a local cache of all users, to speed things up
 	# text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
 
 	# TODO: Detect #channels
