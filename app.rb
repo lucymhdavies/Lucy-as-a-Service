@@ -82,6 +82,8 @@ post '/slack-slash' do
 			admin
 		when "donut"
 			donut
+		when "say_raw"
+			say_raw
 		when "say"
 			say_message
 		when "isay"

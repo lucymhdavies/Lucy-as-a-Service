@@ -37,6 +37,21 @@ def say_message
 	slack_secret_message "Sending..."
 end
 
+def say_raw
+	unless user_is_admin?( params['team_id'], params['user_id'] )
+		return slack_secret_message "These commands are for admins only!"
+	end
+
+	task = Thread.new {
+		message_text = params['text'].sub(/say_raw */, "")
+		message_text = "```#{message_text}```"
+		post_data = slack_message message_text
+		RestClient.post(params['response_url'], post_data )
+	}
+
+	slack_secret_message "Sending..."
+end
+
 def me_say_message
 	task = Thread.new {
 		message_text = params['text'].sub(/isay */, "")
@@ -46,3 +61,5 @@ def me_say_message
 
 	slack_secret_message "Sending..."
 end
+
+
