@@ -105,30 +105,33 @@ def slack_parse_channels( team_id, text )
 
 	logger.debug(__method__){ "Parsing for Slack channels" }
 
-	words = text.split( " " )
-	words.map! do |word|
-		# if this does not start with #, it's not a channel
-		# so just return it as is
-		unless word.start_with?('#')
-			word
-		else
-			# strip # from channel name
-			channel_name = word[1..-1]
-
-			# Does the named channel exist?
-			channel = all_channels.detect{ |channel| channel["name"] == channel_name }
-
-			# No. Return as plaintext
-			if channel.nil?
+	lines = text.split("\n")
+	lines.map! do |line|
+		words = line.split( " " )
+		words.map! do |word|
+			# if this does not start with #, it's not a channel
+			# so just return it as is
+			unless word.start_with?('#')
 				word
 			else
-				# Channels are <#C024BE7LR|general> (general is optional)
-				"<##{channel['id']}>"
+				# strip # from channel name
+				channel_name = word[1..-1]
+
+				# Does the named channel exist?
+				channel = all_channels.detect{ |channel| channel["name"] == channel_name }
+
+				# No. Return as plaintext
+				if channel.nil?
+					word
+				else
+					# Channels are <#C024BE7LR|general> (general is optional)
+					"<##{channel['id']}>"
+				end
 			end
-			
 		end
+		words.join(" ")
 	end
-	text = words.join( " " )
+	text = lines.join( "\n" )
 
 	logger.debug(__method__){ "After parsing for Slack channels: #{text}" }
 
@@ -139,12 +142,6 @@ def slack_parse_users( team_id, text )
 	# Detect @users
 	# TODO: add user groups here too, but can't be done with a test token
 
-
-	# Usernames are @bob --> <@bob|bob>
-	# TODO: ensure this isn't part of another word or email address or something.
-	#
-	# text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
-
 	all_users = Slack.users_list["members"]
 	if all_users.nil?
 		logger.warn(__method__){ "Unable to list all Slack users!" }
@@ -153,35 +150,48 @@ def slack_parse_users( team_id, text )
 
 	logger.debug(__method__){ "Parsing for Slack users" }
 
-	words = text.split( " " )
-	words.map! do |word|
-		# if this does not start with @, it's not a user
-		# so just return it as is
-		unless word.start_with?('@')
-			word
-		else
-			# strip @ from user name
-			user_name = word[1..-1]
-
-			# Does the named user exist?
-			# i.e. legacy "username"
-			user = all_users.detect{ |user| user['name'] == user_name }
-
-			# TODO: check profile.real_name(normalized)? ids? profile.display_name(normalized)? profile.email?
-
-			# No. Return as plaintext
-			if user.nil?
+	lines = text.split("\n")
+	lines.map! do |line|
+		words = line.split( " " )
+		words.map! do |word|
+			# if this does not start with @, it's not a user
+			# so just return it as is
+			unless word.start_with?('@')
 				word
 			else
-				# users are <@U024BE7LH|lucy>
-				"<@#{user['id']}>"
+				# strip @ from user name
+				user_name = word[1..-1]
+
+				# Does the named user exist?
+				# i.e. legacy "username"
+				user = all_users.detect{ |user| user['name'] == user_name }
+
+				# TODO: check profile.real_name(normalized)? ids? profile.display_name(normalized)? profile.email?
+
+				# No. Return as plaintext
+				if user.nil?
+					word
+				else
+					# users are <@U024BE7LH|lucy>
+					"<@#{user['id']}>"
+				end
 			end
-			
 		end
+		words.join(" ")
 	end
-	text = words.join( " " )
+	text = lines.join( "\n" )
 
 	logger.debug(__method__){ "After parsing for Slack users: #{text}" }
 
 	text
 end
+
+
+
+
+
+
+
+
+
+
