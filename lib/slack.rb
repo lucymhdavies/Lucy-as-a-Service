@@ -67,17 +67,9 @@ end
 # Parse a string for slacky things
 def slack_parse( team_id, text )
 
-	slack_parse_jira( team_id, text )
+	text = slack_parse_jira( team_id, text )
 
-	# Usernames are @bob --> <@bob|bob>
-	# TODO: ensure this isn't part of another word or email address or something.
-	#
-	# TODO: if this comes from /laas say or /laas isay, the message LaaS sees is something like:
-	# can I @daviesl mention when i /laas isay ?
-	# where "daviesl" is the deprecated user['name']
-	# So it would be nice if this could extract the user['id'] based on that.
-	# Would probably require a local cache of all users, to speed things up
-	# text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
+	text = slack_parse_users( team_id, text )
 
 	text = slack_parse_channels( team_id, text )
 
@@ -139,6 +131,57 @@ def slack_parse_channels( team_id, text )
 	text = words.join( " " )
 
 	logger.debug(__method__){ "After parsing for Slack channels: #{text}" }
+
+	text
+end
+
+def slack_parse_users( team_id, text )
+	# Detect @users
+	# TODO: add user groups here too, but can't be done with a test token
+
+
+	# Usernames are @bob --> <@bob|bob>
+	# TODO: ensure this isn't part of another word or email address or something.
+	#
+	# text = text.gsub( /(@)([a-z0-9][a-z0-9._-]*)/ , "<@\\2|\\2>" )
+
+	all_users = Slack.users_list["members"]
+	if all_users.nil?
+		logger.warn(__method__){ "Unable to list all Slack users!" }
+		return text
+	end
+
+	logger.debug(__method__){ "Parsing for Slack users" }
+
+	words = text.split( " " )
+	words.map! do |word|
+		# if this does not start with @, it's not a user
+		# so just return it as is
+		unless word.start_with?('@')
+			word
+		else
+			# strip @ from user name
+			user_name = word[1..-1]
+
+			# Does the named user exist?
+			# i.e. legacy "username"
+			user = all_users.detect{ |user| user['name'] == user_name }
+
+			# TODO: check profile.real_name(normalized)? ids? profile.display_name(normalized)? profile.email?
+
+			# No. Return as plaintext
+			if user.nil?
+				word
+			else
+				# users are <@U024BE7LH|lucy>
+				"<##{user['id']}>"
+			end
+			
+		end
+	end
+	text = words.join( " " )
+
+	logger.debug(__method__){ "After parsing for Slack users: #{text}" }
 
 	text
 end
