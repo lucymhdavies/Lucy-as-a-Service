@@ -174,7 +174,7 @@ def slack_parse_users( team_id, text )
 				word
 			else
 				# users are <@U024BE7LH|lucy>
-				"<##{user['id']}>"
+				"<@#{user['id']}>"
 			end
 			
 		end
