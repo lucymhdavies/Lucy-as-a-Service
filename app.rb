@@ -55,7 +55,7 @@ post '/slack-slash' do
 		when "teaflick"
 			slack_message teaflick
 		when "save"
-			slack_secret_message save_message
+			save_message
 		when "replay"
 			replay_message
 		when "lunch_roulette"

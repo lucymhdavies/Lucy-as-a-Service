@@ -1,12 +1,19 @@
 
 def save_message
 	saved_message_text = params['text'].sub(/save */, "")
-	saved_message_text = slack_parse( params['team_id'], saved_message_text )
 
+	task = Thread.new {
+		saved_message_text = slack_parse( params['team_id'], saved_message_text )
 
-	$redis.setex( "laas:saved_message:#{params['user_id']}", 60 * 30, saved_message_text )
+		$redis.setex( "laas:saved_message:#{params['user_id']}", 60 * 30, saved_message_text )
 
-	"Insecurely Saved:\n\n" + saved_message_text
+		message_text = "Insecurely Saved:\n\n" + saved_message_text
+
+		post_data = slack_secret_message message_text
+		RestClient.post(params['response_url'], post_data )
+	}
+
+	slack_secret_message "Saving message..."
 end
 
 def replay_message
