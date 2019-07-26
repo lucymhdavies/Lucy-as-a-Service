@@ -52,7 +52,7 @@ post '/slack-slash' do
 			quote
 		when "getRandomNumber"
 			slack_message xkcd221
-		when "teaflick"
+		when "teaflick", "flick", "flip", "coinflip"
 			slack_message teaflick
 		when "save"
 			save_message
