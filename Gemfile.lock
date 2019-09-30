@@ -42,7 +42,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rake (11.1.2)
+    rake (13.0.0)
     redis (3.3.2)
     redis-browser (0.5.1)
       coffee-script
