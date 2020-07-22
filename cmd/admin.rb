@@ -62,4 +62,18 @@ def me_say_message
 	slack_secret_message "Sending..."
 end
 
+def ivie_message
+	unless user_is_admin?( params['team_id'], params['user_id'] )
+		return slack_secret_message "These commands are for admins only!"
+	end
+
+	task = Thread.new {
+		message_text = params['text'].sub(/ivie */, "")
+		message_text = slack_parse( params['team_id'], message_text )
+		slack_message_ivie!( message_text, params['channel_id'] )
+	}
+
+	slack_secret_message "Sending..."
+end
+
 

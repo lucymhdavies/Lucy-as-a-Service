@@ -58,6 +58,22 @@ def slack_message_as! ( text, uid, channel )
 	RestClient.get(post_url)
 end
 
+def slack_message_ivie! ( text, channel )
+	message_text = ERB::Util.url_encode(text)
+	username = ERB::Util.url_encode("Ivie Morrigan")
+	icon_url = ERB::Util.url_encode("https://pbs.twimg.com/profile_images/1285331320508428295/LaieEl_L_400x400.jpg")
+
+	post_url = "https://slack.com/api/chat.postMessage?" +
+		"token=#{ENV["SLACK_API_TOKEN"]}" +
+		"&channel=#{channel}" +
+		"&username=#{username}" +
+		"&icon_url=#{icon_url}" +
+		"&as_user=false" +
+		"&text=#{message_text}"
+
+	RestClient.get(post_url)
+end
+
 def slack_secret_message ( text )
 	json ({
 		"text"          => text

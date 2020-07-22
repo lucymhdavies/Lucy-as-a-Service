@@ -86,6 +86,8 @@ post '/slack-slash' do
 			say_raw
 		when "say"
 			say_message
+		when "ivie"
+			ivie_message
 		when "isay"
 			me_say_message
 		when "version"
