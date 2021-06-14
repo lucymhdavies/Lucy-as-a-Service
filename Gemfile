@@ -10,7 +10,7 @@ gem 'dotenv'
 gem 'json'
 gem 'slack-api'
 gem 'rest-client'
-gem 'redis', '~>3.2'
+gem 'redis', '~>4.3'
 
 gem 'redis-browser'
 
